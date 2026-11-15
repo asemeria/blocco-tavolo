@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blocca Tavolo</title>
+<style>
+  :root {
+    --bg: #222639; --bg-2: #1e2231; --text: #fff; --text-2: rgba(255,255,255,.7);
+    --accent: #bb99ff; --accent-text: #000;
+    --line: color-mix(in srgb, var(--text) 14%, transparent);
+    --field: color-mix(in srgb, var(--text) 7%, transparent);
+    --ok: #6fcf97; --warn: #f2c94c;
+    font-family: Roboto, "Segoe UI", system-ui, sans-serif;
+    color-scheme: dark;
+  }
+  :root[data-mode="light"] { color-scheme: light; --ok: #1e8e4f; --warn: #a66d00; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: transparent; color: var(--text); }
+  body { padding: 14px 16px 18px; font-size: 14px; line-height: 1.45; }
+  h1 { font-size: 15px; font-weight: 600; margin: 0 0 12px; letter-spacing: .01em; }
+  h2 { font-size: 13px; font-weight: 600; margin: 18px 0 8px; color: var(--text); }
+  p { margin: 0; }
+  .muted { color: var(--text-2); font-size: 12.5px; }
+
+  /* stato: l'unico elemento "forte" del pannello */
+  .state { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center;
+    padding: 12px; border-radius: 12px; background: var(--field); }
+  .state svg { width: 44px; height: 44px; }
+  .state .shackle { transition: transform .25s ease; transform-origin: 30px 20px; }
+  .state[data-kind="idle"] .shackle,
+  .state[data-kind="paused"] .shackle { transform: translateY(-5px) rotate(-18deg); }
+  .state[data-kind="locked"] { color: var(--ok); }
+  .state[data-kind="paused"] { color: var(--warn); }
+  .state[data-kind="idle"] { color: var(--text-2); }
+  .state-title { font-weight: 600; color: var(--text); }
+  @media (prefers-reduced-motion: reduce) { .state .shackle { transition: none; } }
+
+  .switch { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; cursor: pointer; }
+  .switch input { margin-top: 3px; accent-color: var(--accent); width: 16px; height: 16px; }
+
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px;
+    background: var(--field); border-radius: 10px; }
+  .seg button { border: 0; border-radius: 7px; padding: 7px 4px; background: transparent;
+    color: var(--text-2); font: inherit; font-size: 12.5px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); font-weight: 600; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; }
+  label.f { display: grid; gap: 4px; font-size: 12.5px; color: var(--text-2); }
+  input[type="text"], input[type="number"] { width: 100%; font: inherit; color: var(--text);
+    background: var(--field); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
+  input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .readout { margin-top: 10px; font-size: 12.5px; color: var(--text-2); }
+  .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .btn { border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit;
+    font-size: 13px; padding: 7px 12px; border-radius: 8px; cursor: pointer; }
+  .btn.primary { background: var(--accent); color: var(--accent-text); border-color: transparent; font-weight: 600; }
+  .btn:hover { border-color: var(--accent); }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 18px 0 0; }
+  .measure { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
+</style>
+</head>
+<body>
+  <h1>Blocca Tavolo</h1>
+
+  <div class="state" id="state" data-kind="idle" role="status" aria-live="polite">
+    <svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+      <path class="shackle" d="M20 27v-8a10 10 0 0 1 20 0v8"/>
+      <rect x="13" y="27" width="34" height="25" rx="5" fill="currentColor" fill-opacity=".15"/>
+      <path d="M30 37v6"/>
+    </svg>
+    <div>
+      <p class="state-title" id="state-title">Dispositivo libero</p>
+      <p class="muted" id="state-detail"></p>
+    </div>
+  </div>
+
+  <label class="switch">
+    <input type="checkbox" id="is-table">
+    <span>Questo dispositivo è il monitor del tavolo
+      <span class="muted" style="display:block">L’impostazione resta salvata solo in questo browser.</span>
+    </span>
+  </label>
+
+  <div id="table-settings" hidden>
+    <h2>Cosa bloccare</h2>
+    <div class="seg" role="group" aria-label="Modalità di blocco">
+      <button type="button" data-mode="off">Niente</button>
+      <button type="button" data-mode="scale">Solo zoom</button>
+      <button type="button" data-mode="full">Zoom e vista</button>
+    </div>
+    <p class="muted" style="margin-top:6px">“Solo zoom” lascia seguire il master con Sync View. “Zoom e vista” blocca anche gli spostamenti.</p>
+
+    <h2>Monitor</h2>
+    <div class="grid2">
+      <label class="f">Diagonale (pollici)<input type="text" inputmode="decimal" id="diagonal"></label>
+      <label class="f">Quadretto (pollici)<input type="text" inputmode="decimal" id="cell"></label>
+      <label class="f">Larghezza px<input type="text" inputmode="numeric" id="res-w" placeholder="auto"></label>
+      <label class="f">Altezza px<input type="text" inputmode="numeric" id="res-h" placeholder="auto"></label>
+    </div>
+    <p class="muted" style="margin-top:6px">Risoluzione rilevata: <span id="res-detected"></span>. Lascia vuoto per usarla.</p>
+    <p class="readout" id="readout"></p>
+
+    <h2>Verifica col righello</h2>
+    <p class="muted">Misura 10 quadretti sul monitor. Dovrebbero essere <span id="expected"></span>.</p>
+    <div class="measure" style="margin-top:8px">
+      <label class="f">Misura reale (mm)<input type="text" inputmode="decimal" id="measured" placeholder="es. 249"></label>
+      <button type="button" class="btn primary" id="measure-apply">Correggi</button>
+    </div>
+    <div class="row">
+      <button type="button" class="btn" id="apply-now">Applica la scala ora</button>
+      <button type="button" class="btn" id="lock-here">Blocca qui</button>
+      <button type="button" class="btn" id="measure-reset">Azzera correzione</button>
+    </div>
+  </div>
+
+  <section id="gm-section" hidden>
+    <hr>
+    <h2>Telecomando del tavolo</h2>
+    <p class="muted">Per cambiare mappa: sblocca, sposta la vista con Sync View, poi blocca di nuovo.</p>
+    <div class="row">
+      <button type="button" class="btn" id="gm-pause">Sblocca il tavolo</button>
+      <button type="button" class="btn primary" id="gm-lock">Blocca il tavolo qui</button>
+    </div>
+  </section>
+
+  <script src="popover.js"></script>
+</body>
+</html>
