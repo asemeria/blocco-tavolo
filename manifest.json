@@ -1,16 +1,16 @@
 {
   "name": "Blocca Tavolo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 1,
   "description": "Blocca zoom e vista sul monitor del tavolo, con la griglia calibrata a misura di miniatura.",
   "author": "Il vostro gruppo",
-  "icon": "icon.svg",
+  "icon": "/blocco-tavolo/icon.svg",
   "action": {
     "title": "Blocca Tavolo",
-    "icon": "icon.svg",
-    "popover": "index.html",
+    "icon": "/blocco-tavolo/icon.svg",
+    "popover": "/blocco-tavolo/index.html",
     "height": 620,
     "width": 360
   },
-  "background_url": "background.html"
+  "background_url": "/blocco-tavolo/background.html"
 }
