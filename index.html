@@ -39,7 +39,7 @@
   .switch { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; cursor: pointer; }
   .switch input { margin-top: 3px; accent-color: var(--accent); width: 16px; height: 16px; }
 
-  .seg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 4px;
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px;
     background: var(--field); border-radius: 10px; }
   .seg button { border: 0; border-radius: 7px; padding: 7px 4px; background: transparent;
     color: var(--text-2); font: inherit; font-size: 12.5px; cursor: pointer; }
@@ -87,12 +87,11 @@
   <div id="table-settings" hidden>
     <h2>Cosa bloccare</h2>
     <div class="seg" role="group" aria-label="Modalità di blocco">
-      <button type="button" data-mode="shield">Solo pedine</button>
-      <button type="button" data-mode="full">Zoom e vista</button>
-      <button type="button" data-mode="scale">Solo zoom</button>
       <button type="button" data-mode="off">Niente</button>
+      <button type="button" data-mode="scale">Solo zoom</button>
+      <button type="button" data-mode="full">Zoom e vista</button>
     </div>
-    <p class="muted" style="margin-top:6px">“Solo pedine” copre lo schermo con uno scudo invisibile: i tocchi spostano le pedine e nient’altro. Le altre modalità lasciano passare il gesto e lo annullano subito dopo.</p>
+    <p class="muted" style="margin-top:6px">“Solo zoom” lascia seguire il master con Sync View. “Zoom e vista” blocca anche gli spostamenti.</p>
 
     <h2>Monitor</h2>
     <div class="grid2">

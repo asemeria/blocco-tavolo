@@ -7,8 +7,9 @@ Blocca zoom e vista sul monitor del tavolo, con il quadretto calibrato a 1 polli
 
 - Si attiva **solo sul dispositivo** in cui spuntate “Questo dispositivo è il monitor del tavolo”
   (l’impostazione resta salvata in quel browser). Il portatile del master resta libero.
-- Ogni 0,3 secondi controlla la vista: se un tocco, un pizzico o la rotellina l’hanno cambiata,
-  la riporta indietro.
+- Controlla la vista a intervalli: se un tocco, un pizzico o la rotellina l’hanno cambiata,
+  la riporta indietro. A riposo controlla ogni 0,4 secondi; appena rileva un gesto passa a
+  0,08 secondi per 2 secondi, così la correzione è quasi immediata.
 - Modalità:
   - **Solo zoom**: la scala resta fissa, la mappa si può spostare (compatibile con Sync View del master).
   - **Zoom e vista**: blocca anche gli spostamenti. Cambiando scena si riaggancia dove si apre.
@@ -19,7 +20,7 @@ Blocca zoom e vista sul monitor del tavolo, con il quadretto calibrato a 1 polli
 
 1. Create un account su github.com e un nuovo repository **pubblico** (es. `blocco-tavolo`).
 2. Caricate nel repository tutti i file di questa cartella
-   (`manifest.json`, `index.html`, `background.html`, `shield.html`, `popover.js`, `background.js`, `shield.js`, `icon.svg`).
+   (`manifest.json`, `index.html`, `background.html`, `popover.js`, `background.js`, `icon.svg`).
 3. Nel repository: **Settings → Pages → Build and deployment → Deploy from a branch**,
    scegliete `main` e la cartella `/ (root)`, poi salvate. Dopo un minuto il sito è online.
 4. Il link dell’estensione sarà:
@@ -49,19 +50,7 @@ e lo zoom del browser.
 - Se il master usa Sync View con la modalità “Zoom e vista”, il tavolo torna indietro:
   usate prima “Sblocca il tavolo”, oppure la modalità “Solo zoom”.
 
-## Novità 2.0 – modalità “Solo pedine”
+## Sorgenti
 
-Sopra Owlbear viene aperta una pagina trasparente a tutto schermo (lo “scudo”).
-Tutti i tocchi arrivano allo scudo, quindi Owlbear non riceve più pan, pinch o rotellina:
-la vista non si muove proprio, senza tremolio. Lo scudo riconosce da sé la pedina sotto il dito
-(livello Personaggi, non bloccata, visibile) e la sposta; un dito sul vuoto non fa nulla.
-Ogni dito è indipendente, quindi le miniature appoggiate sullo schermo non disturbano.
-
-- **Per tornare alle impostazioni**: tenere premuto 3 secondi il lucchetto nell’angolo in alto a sinistra
-  (o premere Esc): si apre il pannello dell’estensione. Finché il pannello è aperto lo scudo resta giù;
-  chiudendolo torna su.
-- Con lo scudo attivo il resto dell’interfaccia di Owlbear non è raggiungibile dal tavolo: è voluto.
-- Il vecchio controllo a intervalli resta come rete di sicurezza, ogni 1,5 secondi.
-
-I sorgenti sono in `src/`; per ricompilare:
-`npx esbuild src/background.js src/popover.js src/shield.js --bundle --format=iife --minify --outdir=.`
+Il codice leggibile è in `src/`. Per ricompilare:
+`npx esbuild src/background.js src/popover.js --bundle --format=iife --minify --outdir=.`
