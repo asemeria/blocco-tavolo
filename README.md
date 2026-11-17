@@ -23,7 +23,7 @@ Blocca zoom e vista sul monitor del tavolo, con il quadretto calibrato a 1 polli
 3. Nel repository: **Settings → Pages → Build and deployment → Deploy from a branch**,
    scegliete `main` e la cartella `/ (root)`, poi salvate. Dopo un minuto il sito è online.
 4. Il link dell’estensione sarà:
-   `https://VOSTRO-UTENTE.github.io/blocca-tavolo/manifest.json`
+   `https://VOSTRO-UTENTE.github.io/blocco-tavolo/manifest.json`
 5. In Owlbear Rodeo: profilo → **Extensions** → **+ (Add Custom Extension)** → incollate il link.
 6. Nella stanza, abilitate l’estensione dal gestore estensioni.
 
