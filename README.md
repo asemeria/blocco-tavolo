@@ -17,9 +17,9 @@ Blocca zoom e vista sul monitor del tavolo, con il quadretto calibrato a 1 polli
 
 ## Installazione (gratuita, con GitHub Pages)
 
-1. Create un account su github.com e un nuovo repository **pubblico** (es. `blocca-tavolo`).
+1. Create un account su github.com e un nuovo repository **pubblico** (es. `blocco-tavolo`).
 2. Caricate nel repository tutti i file di questa cartella
-   (`manifest.json`, `index.html`, `background.html`, `popover.js`, `background.js`, `icon.svg`).
+   (`manifest.json`, `index.html`, `background.html`, `shield.html`, `popover.js`, `background.js`, `shield.js`, `icon.svg`).
 3. Nel repository: **Settings → Pages → Build and deployment → Deploy from a branch**,
    scegliete `main` e la cartella `/ (root)`, poi salvate. Dopo un minuto il sito è online.
 4. Il link dell’estensione sarà:
@@ -48,3 +48,19 @@ e lo zoom del browser.
 - Funziona con qualsiasi tipo di griglia della scena, perché legge i DPI della griglia.
 - Se il master usa Sync View con la modalità “Zoom e vista”, il tavolo torna indietro:
   usate prima “Sblocca il tavolo”, oppure la modalità “Solo zoom”.
+
+## Novità 2.0 – modalità “Solo pedine”
+
+Sopra Owlbear viene aperta una pagina trasparente a tutto schermo (lo “scudo”).
+Tutti i tocchi arrivano allo scudo, quindi Owlbear non riceve più pan, pinch o rotellina:
+la vista non si muove proprio, senza tremolio. Lo scudo riconosce da sé la pedina sotto il dito
+(livello Personaggi, non bloccata, visibile) e la sposta; un dito sul vuoto non fa nulla.
+Ogni dito è indipendente, quindi le miniature appoggiate sullo schermo non disturbano.
+
+- **Uscita d’emergenza**: tenere premuto 3 secondi l’angolo in alto a sinistra mette il blocco in pausa.
+  Si riprende da “Blocca qui” o dal telecomando del master.
+- Con lo scudo attivo l’interfaccia di Owlbear non è raggiungibile dal tavolo: è voluto.
+- Il vecchio controllo a intervalli resta come rete di sicurezza, ogni 1,5 secondi.
+
+I sorgenti sono in `src/`; per ricompilare:
+`npx esbuild src/background.js src/popover.js src/shield.js --bundle --format=iife --minify --outdir=.`
