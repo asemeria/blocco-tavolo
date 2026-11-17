@@ -1,6 +1,6 @@
 {
   "name": "Blocca Tavolo",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "manifest_version": 1,
   "description": "Blocca zoom e vista sul monitor del tavolo, con la griglia calibrata a misura di miniatura.",
   "author": "Il vostro gruppo",
