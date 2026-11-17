@@ -2,6 +2,15 @@
 <html lang="it"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Blocca Tavolo – scudo</title>
-<style>html,body{margin:0;width:100%;height:100%;background:transparent;overflow:hidden;
-touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}</style>
-</head><body><script src="shield.js"></script></body></html>
+<style>
+html,body{margin:0;width:100%;height:100%;background:transparent;overflow:hidden;
+touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#corner{position:fixed;top:14px;left:14px;width:34px;height:34px;border-radius:50%;
+display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.35);opacity:.45;pointer-events:none;
+transition:opacity .2s, box-shadow .2s}
+#corner svg{width:18px;height:18px}
+#corner.holding{opacity:1;box-shadow:0 0 0 6px rgba(187,153,255,.9);transition:opacity .2s, box-shadow 3s linear}
+</style>
+</head><body>
+<div id="corner" aria-hidden="true"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M20 27v-8a10 10 0 0 1 20 0v8"/><rect x="13" y="27" width="34" height="25" rx="5"/></svg></div>
+<script src="shield.js"></script></body></html>

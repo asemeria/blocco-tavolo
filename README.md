@@ -57,9 +57,10 @@ la vista non si muove proprio, senza tremolio. Lo scudo riconosce da sé la pedi
 (livello Personaggi, non bloccata, visibile) e la sposta; un dito sul vuoto non fa nulla.
 Ogni dito è indipendente, quindi le miniature appoggiate sullo schermo non disturbano.
 
-- **Uscita d’emergenza**: tenere premuto 3 secondi l’angolo in alto a sinistra mette il blocco in pausa.
-  Si riprende da “Blocca qui” o dal telecomando del master.
-- Con lo scudo attivo l’interfaccia di Owlbear non è raggiungibile dal tavolo: è voluto.
+- **Per tornare alle impostazioni**: tenere premuto 3 secondi il lucchetto nell’angolo in alto a sinistra
+  (o premere Esc): si apre il pannello dell’estensione. Finché il pannello è aperto lo scudo resta giù;
+  chiudendolo torna su.
+- Con lo scudo attivo il resto dell’interfaccia di Owlbear non è raggiungibile dal tavolo: è voluto.
 - Il vecchio controllo a intervalli resta come rete di sicurezza, ogni 1,5 secondi.
 
 I sorgenti sono in `src/`; per ricompilare:
