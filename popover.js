@@ -1,1 +1,3729 @@
-(()=>{var Ts=Object.create;var pe=Object.defineProperty;var As=Object.getOwnPropertyDescriptor;var vs=Object.getOwnPropertyNames;var Bs=Object.getPrototypeOf,Rs=Object.prototype.hasOwnProperty;var Cs=(e,t)=>()=>{try{return t||e((t={exports:{}}).exports,t),t.exports}catch(s){throw t=0,s}};var Ss=(e,t,s,i)=>{if(t&&typeof t=="object"||typeof t=="function")for(let n of vs(t))!Rs.call(e,n)&&n!==s&&pe(e,n,{get:()=>t[n],enumerable:!(i=As(t,n))||i.enumerable});return e};var Is=(e,t,s)=>(s=e!=null?Ts(Bs(e)):{},Ss(t||!e||!e.__esModule?pe(s,"default",{value:e,enumerable:!0}):s,e));var Ie=Cs((bi,vt)=>{"use strict";var z=typeof Reflect=="object"?Reflect:null,Oe=z&&typeof z.apply=="function"?z.apply:function(t,s,i){return Function.prototype.apply.call(t,s,i)},ht;z&&typeof z.ownKeys=="function"?ht=z.ownKeys:Object.getOwnPropertySymbols?ht=function(t){return Object.getOwnPropertyNames(t).concat(Object.getOwnPropertySymbols(t))}:ht=function(t){return Object.getOwnPropertyNames(t)};function ws(e){console&&console.warn&&console.warn(e)}var xe=Number.isNaN||function(t){return t!==t};function p(){p.init.call(this)}vt.exports=p;vt.exports.once=bs;p.EventEmitter=p;p.prototype._events=void 0;p.prototype._eventsCount=0;p.prototype._maxListeners=void 0;var ge=10;function ft(e){if(typeof e!="function")throw new TypeError('The "listener" argument must be of type Function. Received type '+typeof e)}Object.defineProperty(p,"defaultMaxListeners",{enumerable:!0,get:function(){return ge},set:function(e){if(typeof e!="number"||e<0||xe(e))throw new RangeError('The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received '+e+".");ge=e}});p.init=function(){(this._events===void 0||this._events===Object.getPrototypeOf(this)._events)&&(this._events=Object.create(null),this._eventsCount=0),this._maxListeners=this._maxListeners||void 0};p.prototype.setMaxListeners=function(t){if(typeof t!="number"||t<0||xe(t))throw new RangeError('The value of "n" is out of range. It must be a non-negative number. Received '+t+".");return this._maxListeners=t,this};function Te(e){return e._maxListeners===void 0?p.defaultMaxListeners:e._maxListeners}p.prototype.getMaxListeners=function(){return Te(this)};p.prototype.emit=function(t){for(var s=[],i=1;i<arguments.length;i++)s.push(arguments[i]);var n=t==="error",r=this._events;if(r!==void 0)n=n&&r.error===void 0;else if(!n)return!1;if(n){var a;if(s.length>0&&(a=s[0]),a instanceof Error)throw a;var l=new Error("Unhandled error."+(a?" ("+a.message+")":""));throw l.context=a,l}var d=r[t];if(d===void 0)return!1;if(typeof d=="function")Oe(d,this,s);else for(var c=d.length,o=Ce(d,c),i=0;i<c;++i)Oe(o[i],this,s);return!0};function Ae(e,t,s,i){var n,r,a;if(ft(s),r=e._events,r===void 0?(r=e._events=Object.create(null),e._eventsCount=0):(r.newListener!==void 0&&(e.emit("newListener",t,s.listener?s.listener:s),r=e._events),a=r[t]),a===void 0)a=r[t]=s,++e._eventsCount;else if(typeof a=="function"?a=r[t]=i?[s,a]:[a,s]:i?a.unshift(s):a.push(s),n=Te(e),n>0&&a.length>n&&!a.warned){a.warned=!0;var l=new Error("Possible EventEmitter memory leak detected. "+a.length+" "+String(t)+" listeners added. Use emitter.setMaxListeners() to increase limit");l.name="MaxListenersExceededWarning",l.emitter=e,l.type=t,l.count=a.length,ws(l)}return e}p.prototype.addListener=function(t,s){return Ae(this,t,s,!1)};p.prototype.on=p.prototype.addListener;p.prototype.prependListener=function(t,s){return Ae(this,t,s,!0)};function Ns(){if(!this.fired)return this.target.removeListener(this.type,this.wrapFn),this.fired=!0,arguments.length===0?this.listener.call(this.target):this.listener.apply(this.target,arguments)}function ve(e,t,s){var i={fired:!1,wrapFn:void 0,target:e,type:t,listener:s},n=Ns.bind(i);return n.listener=s,i.wrapFn=n,n}p.prototype.once=function(t,s){return ft(s),this.on(t,ve(this,t,s)),this};p.prototype.prependOnceListener=function(t,s){return ft(s),this.prependListener(t,ve(this,t,s)),this};p.prototype.removeListener=function(t,s){var i,n,r,a,l;if(ft(s),n=this._events,n===void 0)return this;if(i=n[t],i===void 0)return this;if(i===s||i.listener===s)--this._eventsCount===0?this._events=Object.create(null):(delete n[t],n.removeListener&&this.emit("removeListener",t,i.listener||s));else if(typeof i!="function"){for(r=-1,a=i.length-1;a>=0;a--)if(i[a]===s||i[a].listener===s){l=i[a].listener,r=a;break}if(r<0)return this;r===0?i.shift():Ms(i,r),i.length===1&&(n[t]=i[0]),n.removeListener!==void 0&&this.emit("removeListener",t,l||s)}return this};p.prototype.off=p.prototype.removeListener;p.prototype.removeAllListeners=function(t){var s,i,n;if(i=this._events,i===void 0)return this;if(i.removeListener===void 0)return arguments.length===0?(this._events=Object.create(null),this._eventsCount=0):i[t]!==void 0&&(--this._eventsCount===0?this._events=Object.create(null):delete i[t]),this;if(arguments.length===0){var r=Object.keys(i),a;for(n=0;n<r.length;++n)a=r[n],a!=="removeListener"&&this.removeAllListeners(a);return this.removeAllListeners("removeListener"),this._events=Object.create(null),this._eventsCount=0,this}if(s=i[t],typeof s=="function")this.removeListener(t,s);else if(s!==void 0)for(n=s.length-1;n>=0;n--)this.removeListener(t,s[n]);return this};function Be(e,t,s){var i=e._events;if(i===void 0)return[];var n=i[t];return n===void 0?[]:typeof n=="function"?s?[n.listener||n]:[n]:s?Ls(n):Ce(n,n.length)}p.prototype.listeners=function(t){return Be(this,t,!0)};p.prototype.rawListeners=function(t){return Be(this,t,!1)};p.listenerCount=function(e,t){return typeof e.listenerCount=="function"?e.listenerCount(t):Re.call(e,t)};p.prototype.listenerCount=Re;function Re(e){var t=this._events;if(t!==void 0){var s=t[e];if(typeof s=="function")return 1;if(s!==void 0)return s.length}return 0}p.prototype.eventNames=function(){return this._eventsCount>0?ht(this._events):[]};function Ce(e,t){for(var s=new Array(t),i=0;i<t;++i)s[i]=e[i];return s}function Ms(e,t){for(;t+1<e.length;t++)e[t]=e[t+1];e.pop()}function Ls(e){for(var t=new Array(e.length),s=0;s<t.length;++s)t[s]=e[s].listener||e[s];return t}function bs(e,t){return new Promise(function(s,i){function n(a){e.removeListener(t,r),i(a)}function r(){typeof e.removeListener=="function"&&e.removeListener("error",n),s([].slice.call(arguments))}Se(e,t,r,{once:!0}),t!=="error"&&Ds(e,n,{once:!0})})}function Ds(e,t,s){typeof e.on=="function"&&Se(e,"error",t,s)}function Se(e,t,s,i){if(typeof e.on=="function")i.once?e.once(t,s):e.on(t,s);else if(typeof e.addEventListener=="function")e.addEventListener(t,function n(r){i.once&&e.removeEventListener(t,n),s(r)});else throw new TypeError('The "emitter" argument must be of type EventEmitter. Received type '+typeof e)}});var S=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},Tt=class{constructor(t){this.messageBus=t}get id(){if(!this.messageBus.userId)throw Error("Unable to get user ID: not ready");return this.messageBus.userId}getSelection(){return S(this,void 0,void 0,function*(){let{selection:t}=yield this.messageBus.sendAsync("OBR_PLAYER_GET_SELECTION",{});return t})}select(t,s){return S(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_PLAYER_SELECT",{items:t,replace:s})})}deselect(t){return S(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_PLAYER_DESELECT",{items:t})})}getName(){return S(this,void 0,void 0,function*(){let{name:t}=yield this.messageBus.sendAsync("OBR_PLAYER_GET_NAME",{});return t})}setName(t){return S(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_PLAYER_SET_NAME",{name:t})})}getColor(){return S(this,void 0,void 0,function*(){let{color:t}=yield this.messageBus.sendAsync("OBR_PLAYER_GET_COLOR",{});return t})}setColor(t){return S(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_PLAYER_SET_COLOR",{color:t})})}getSyncView(){return S(this,void 0,void 0,function*(){let{syncView:t}=yield this.messageBus.sendAsync("OBR_PLAYER_GET_SYNC_VIEW",{});return t})}setSyncView(t){return S(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_PLAYER_SET_SYNC_VIEW",{syncView:t})})}getId(){return S(this,void 0,void 0,function*(){let{id:t}=yield this.messageBus.sendAsync("OBR_PLAYER_GET_ID",{});return t})}getRole(){return S(this,void 0,void 0,function*(){let{role:t}=yield this.messageBus.sendAsync("OBR_PLAYER_GET_ROLE",{});return t})}getMetadata(){return S(this,void 0,void 0,function*(){let{metadata:t}=yield this.messageBus.sendAsync("OBR_PLAYER_GET_METADATA",{});return t})}setMetadata(t){return S(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_PLAYER_SET_METADATA",{update:t})})}hasPermission(t){return S(this,void 0,void 0,function*(){if((yield this.getRole())==="GM")return!0;let{permissions:i}=yield this.messageBus.sendAsync("OBR_ROOM_GET_PERMISSIONS",{});return i.indexOf(t)>-1})}getConnectionId(){return S(this,void 0,void 0,function*(){let{connectionId:t}=yield this.messageBus.sendAsync("OBR_PLAYER_GET_CONNECTION_ID",{});return t})}onChange(t){let s=i=>{t(i.player)};return this.messageBus.send("OBR_PLAYER_SUBSCRIBE",{}),this.messageBus.on("OBR_PLAYER_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_PLAYER_UNSUBSCRIBE",{}),this.messageBus.off("OBR_PLAYER_EVENT_CHANGE",s)}}},ye=Tt;var b=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},At=class{constructor(t){this.messageBus=t}reset(){return b(this,void 0,void 0,function*(){let{transform:t}=yield this.messageBus.sendAsync("OBR_VIEWPORT_RESET",{});return t})}animateTo(t){return b(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_VIEWPORT_ANIMATE_TO",{transform:t})})}animateToBounds(t){return b(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_VIEWPORT_ANIMATE_TO_BOUNDS",{bounds:t})})}getPosition(){return b(this,void 0,void 0,function*(){let{position:t}=yield this.messageBus.sendAsync("OBR_VIEWPORT_GET_POSITION",{});return t})}setPosition(t){return b(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_VIEWPORT_SET_POSITION",{position:t})})}getScale(){return b(this,void 0,void 0,function*(){let{scale:t}=yield this.messageBus.sendAsync("OBR_VIEWPORT_GET_SCALE",{});return t})}setScale(t){return b(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_VIEWPORT_SET_SCALE",{scale:t})})}getWidth(){return b(this,void 0,void 0,function*(){let{width:t}=yield this.messageBus.sendAsync("OBR_VIEWPORT_GET_WIDTH",{});return t})}getHeight(){return b(this,void 0,void 0,function*(){let{height:t}=yield this.messageBus.sendAsync("OBR_VIEWPORT_GET_HEIGHT",{});return t})}transformPoint(t){return b(this,void 0,void 0,function*(){let{point:s}=yield this.messageBus.sendAsync("OBR_VIEWPORT_TRANSFORM_POINT",{point:t});return s})}inverseTransformPoint(t){return b(this,void 0,void 0,function*(){let{point:s}=yield this.messageBus.sendAsync("OBR_VIEWPORT_INVERSE_TRANSFORM_POINT",{point:t});return s})}},me=At;function Ee(e){return typeof e.id=="string"}var Ne=Is(Ie());var _t,Ps=new Uint8Array(16);function Bt(){if(!_t&&(_t=typeof crypto!="undefined"&&crypto.getRandomValues&&crypto.getRandomValues.bind(crypto),!_t))throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");return _t(Ps)}var B=[];for(let e=0;e<256;++e)B.push((e+256).toString(16).slice(1));function we(e,t=0){return B[e[t+0]]+B[e[t+1]]+B[e[t+2]]+B[e[t+3]]+"-"+B[e[t+4]]+B[e[t+5]]+"-"+B[e[t+6]]+B[e[t+7]]+"-"+B[e[t+8]]+B[e[t+9]]+"-"+B[e[t+10]]+B[e[t+11]]+B[e[t+12]]+B[e[t+13]]+B[e[t+14]]+B[e[t+15]]}var ks=typeof crypto!="undefined"&&crypto.randomUUID&&crypto.randomUUID.bind(crypto),Rt={randomUUID:ks};function Us(e,t,s){if(Rt.randomUUID&&!t&&!e)return Rt.randomUUID();e=e||{};let i=e.random||(e.rng||Bt)();if(i[6]=i[6]&15|64,i[8]=i[8]&63|128,t){s=s||0;for(let n=0;n<16;++n)t[s+n]=i[n];return t}return we(i)}var Ct=Us;var St=class extends Ne.EventEmitter{constructor(t,s){super(),this.ready=!1,this.userId=null,this.ref=null,this.handleMessage=i=>{let n=i.data;if(i.origin===this.targetOrigin&&Ee(n)){if(n.id==="OBR_READY"){this.ready=!0;let r=n.data;this.ref=r.ref,this.userId=r.userId}this.emit(n.id,n.data)}},this.send=(i,n,r)=>{var a;if(!this.ref)throw Error("Unable to send message: not ready");(a=window.parent)===null||a===void 0||a.postMessage({id:i,data:n,ref:this.ref,nonce:r},this.targetOrigin)},this.sendAsync=(i,n,r=5e3)=>{let a=`_${Ct()}`;return this.send(i,n,a),Promise.race([new Promise((l,d)=>{let c=this;function o(h){c.off(`${i}_RESPONSE${a}`,o),c.off(`${i}_ERROR${a}`,u),l(h)}function u(h){c.off(`${i}_RESPONSE${a}`,o),c.off(`${i}_ERROR${a}`,u),d(h)}this.on(`${i}_RESPONSE${a}`,o),this.on(`${i}_ERROR${a}`,u)}),...r>0?[new Promise((l,d)=>window.setTimeout(()=>d(new Error(`Message ${i} took longer than ${r}ms to get a result`)),r))]:[]])},this.roomId=s,this.targetOrigin=t,window.addEventListener("message",this.handleMessage),this.setMaxListeners(100)}destroy(){window.removeEventListener("message",this.handleMessage)}},Me=St;var Le=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},It=class{constructor(t){this.messageBus=t}show(t,s){return Le(this,void 0,void 0,function*(){let{id:i}=yield this.messageBus.sendAsync("OBR_NOTIFICATION_SHOW",{message:t,variant:s});return i})}close(t){return Le(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_NOTIFICATION_CLOSE",{id:t})})}},be=It;var j=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},wt=class{constructor(t){this.messageBus=t}getColor(){return j(this,void 0,void 0,function*(){let{color:t}=yield this.messageBus.sendAsync("OBR_SCENE_FOG_GET_COLOR",{});return t})}setColor(t){return j(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_FOG_SET_COLOR",{color:t})})}getStrokeWidth(){return j(this,void 0,void 0,function*(){let{strokeWidth:t}=yield this.messageBus.sendAsync("OBR_SCENE_FOG_GET_STROKE_WIDTH",{});return t})}setStrokeWidth(t){return j(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_FOG_SET_STROKE_WIDTH",{strokeWidth:t})})}getFilled(){return j(this,void 0,void 0,function*(){let{filled:t}=yield this.messageBus.sendAsync("OBR_SCENE_FOG_GET_FILLED",{});return t})}setFilled(t){return j(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_FOG_SET_FILLED",{filled:t})})}onChange(t){let s=i=>{t(i.fog)};return this.messageBus.send("OBR_SCENE_FOG_SUBSCRIBE",{}),this.messageBus.on("OBR_SCENE_FOG_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_SCENE_FOG_UNSUBSCRIBE",{}),this.messageBus.off("OBR_SCENE_FOG_EVENT_CHANGE",s)}}},De=wt;var R=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},Nt=class{constructor(t){this.messageBus=t}getDpi(){return R(this,void 0,void 0,function*(){let{dpi:t}=yield this.messageBus.sendAsync("OBR_SCENE_GRID_GET_DPI",{});return t})}getScale(){return R(this,void 0,void 0,function*(){return yield this.messageBus.sendAsync("OBR_SCENE_GRID_GET_SCALE",{})})}setScale(t){return R(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_SCALE",{scale:t})})}getColor(){return R(this,void 0,void 0,function*(){let{color:t}=yield this.messageBus.sendAsync("OBR_SCENE_GRID_GET_COLOR",{});return t})}setColor(t){return R(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_COLOR",{color:t})})}getOpacity(){return R(this,void 0,void 0,function*(){let{opacity:t}=yield this.messageBus.sendAsync("OBR_SCENE_GRID_GET_OPACITY",{});return t})}setOpacity(t){return R(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_OPACITY",{opacity:t})})}getType(){return R(this,void 0,void 0,function*(){let{type:t}=yield this.messageBus.sendAsync("OBR_SCENE_GRID_GET_TYPE",{});return t})}setType(t){return R(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_TYPE",{type:t})})}getLineType(){return R(this,void 0,void 0,function*(){let{lineType:t}=yield this.messageBus.sendAsync("OBR_SCENE_GRID_GET_LINE_TYPE",{});return t})}setLineType(t){return R(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_LINE_TYPE",{lineType:t})})}getMeasurement(){return R(this,void 0,void 0,function*(){let{measurement:t}=yield this.messageBus.sendAsync("OBR_SCENE_GRID_GET_MEASUREMENT",{});return t})}setMeasurement(t){return R(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_MEASUREMENT",{measurement:t})})}getLineWidth(){return R(this,void 0,void 0,function*(){let{lineWidth:t}=yield this.messageBus.sendAsync("OBR_SCENE_GRID_GET_LINE_WIDTH",{});return t})}setLineWidth(t){return R(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_LINE_WIDTH",{lineWidth:t})})}snapPosition(t,s,i,n){return R(this,void 0,void 0,function*(){let{position:r}=yield this.messageBus.sendAsync("OBR_SCENE_GRID_SNAP_POSITION",{position:t,snappingSensitivity:s,useCorners:i,useCenter:n});return r})}getDistance(t,s){return R(this,void 0,void 0,function*(){let{distance:i}=yield this.messageBus.sendAsync("OBR_SCENE_GRID_GET_DISTANCE",{from:t,to:s});return i})}onChange(t){let s=i=>{t(i.grid)};return this.messageBus.send("OBR_SCENE_GRID_SUBSCRIBE",{}),this.messageBus.on("OBR_SCENE_GRID_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_SCENE_GRID_UNSUBSCRIBE",{}),this.messageBus.off("OBR_SCENE_GRID_EVENT_CHANGE",s)}}},Pe=Nt;var pt=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},Mt=class{constructor(t){this.messageBus=t}undo(){return pt(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_HISTORY_UNDO",{})})}redo(){return pt(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_HISTORY_REDO",{})})}canUndo(){return pt(this,void 0,void 0,function*(){let{canUndo:t}=yield this.messageBus.sendAsync("OBR_SCENE_HISTORY_CAN_UNDO",{});return t})}canRedo(){return pt(this,void 0,void 0,function*(){let{canRedo:t}=yield this.messageBus.sendAsync("OBR_SCENE_HISTORY_CAN_REDO",{});return t})}},ke=Mt;var Ft=Symbol.for("immer-nothing"),st=Symbol.for("immer-draftable"),N=Symbol.for("immer-state");function C(e,...t){throw new Error(`[Immer] minified error nr: ${e}. Full error at: https://bit.ly/3cXEKWf`)}var Y=Object.getPrototypeOf;function V(e){return!!e&&!!e[N]}function P(e){var t;return e?Fe(e)||Array.isArray(e)||!!e[st]||!!((t=e.constructor)!=null&&t[st])||$(e)||at(e):!1}var Gs=Object.prototype.constructor.toString(),Ue=new WeakMap;function Fe(e){if(!e||typeof e!="object")return!1;let t=Object.getPrototypeOf(e);if(t===null||t===Object.prototype)return!0;let s=Object.hasOwnProperty.call(t,"constructor")&&t.constructor;if(s===Object)return!0;if(typeof s!="function")return!1;let i=Ue.get(s);return i===void 0&&(i=Function.toString.call(s),Ue.set(s,i)),i===Gs}function it(e,t,s=!0){W(e)===0?(s?Reflect.ownKeys(e):Object.keys(e)).forEach(n=>{t(n,e[n],e)}):e.forEach((i,n)=>t(n,i,e))}function W(e){let t=e[N];return t?t.type_:Array.isArray(e)?1:$(e)?2:at(e)?3:0}function nt(e,t){return W(e)===2?e.has(t):Object.prototype.hasOwnProperty.call(e,t)}function Lt(e,t){return W(e)===2?e.get(t):e[t]}function ze(e,t,s){let i=W(e);i===2?e.set(t,s):i===3?e.add(s):e[t]=s}function Vs(e,t){return e===t?e!==0||1/e===1/t:e!==e&&t!==t}function $(e){return e instanceof Map}function at(e){return e instanceof Set}function G(e){return e.copy_||e.base_}function Pt(e,t){if($(e))return new Map(e);if(at(e))return new Set(e);if(Array.isArray(e))return Array.prototype.slice.call(e);let s=Fe(e);if(t===!0||t==="class_only"&&!s){let i=Object.getOwnPropertyDescriptors(e);delete i[N];let n=Reflect.ownKeys(i);for(let r=0;r<n.length;r++){let a=n[r],l=i[a];l.writable===!1&&(l.writable=!0,l.configurable=!0),(l.get||l.set)&&(i[a]={configurable:!0,writable:!0,enumerable:l.enumerable,value:e[a]})}return Object.create(Y(e),i)}else{let i=Y(e);if(i!==null&&s)return{...e};let n=Object.create(i);return Object.assign(n,e)}}function zt(e,t=!1){return Ot(e)||V(e)||!P(e)||(W(e)>1&&Object.defineProperties(e,{set:yt,add:yt,clear:yt,delete:yt}),Object.freeze(e),t&&Object.values(e).forEach(s=>zt(s,!0))),e}function Ws(){C(2)}var yt={value:Ws};function Ot(e){return e===null||typeof e!="object"?!0:Object.isFrozen(e)}var kt={};function H(e){let t=kt[e];return t||C(0,e),t}function Hs(e,t){kt[e]||(kt[e]=t)}var rt;function je(){return rt}function Fs(e,t){return{drafts_:[],parent_:e,immer_:t,canAutoFreeze_:!0,unfinalizedDrafts_:0}}function Ge(e,t){t&&(H("Patches"),e.patches_=[],e.inversePatches_=[],e.patchListener_=t)}function Ut(e){Gt(e),e.drafts_.forEach(zs),e.drafts_=null}function Gt(e){e===rt&&(rt=e.parent_)}function Ve(e){return rt=Fs(rt,e)}function zs(e){let t=e[N];t.type_===0||t.type_===1?t.revoke_():t.revoked_=!0}function We(e,t){t.unfinalizedDrafts_=t.drafts_.length;let s=t.drafts_[0];return e!==void 0&&e!==s?(s[N].modified_&&(Ut(t),C(4)),P(e)&&(e=mt(t,e),t.parent_||Et(t,e)),t.patches_&&H("Patches").generateReplacementPatches_(s[N].base_,e,t.patches_,t.inversePatches_)):e=mt(t,s,[]),Ut(t),t.patches_&&t.patchListener_(t.patches_,t.inversePatches_),e!==Ft?e:void 0}function mt(e,t,s){if(Ot(t))return t;let i=e.immer_.shouldUseStrictIteration(),n=t[N];if(!n)return it(t,(r,a)=>He(e,n,t,r,a,s),i),t;if(n.scope_!==e)return t;if(!n.modified_)return Et(e,n.base_,!0),n.base_;if(!n.finalized_){n.finalized_=!0,n.scope_.unfinalizedDrafts_--;let r=n.copy_,a=r,l=!1;n.type_===3&&(a=new Set(r),r.clear(),l=!0),it(a,(d,c)=>He(e,n,r,d,c,s,l),i),Et(e,r,!1),s&&e.patches_&&H("Patches").generatePatches_(n,s,e.patches_,e.inversePatches_)}return n.copy_}function He(e,t,s,i,n,r,a){if(n==null||typeof n!="object"&&!a)return;let l=Ot(n);if(!(l&&!a)){if(V(n)){let d=r&&t&&t.type_!==3&&!nt(t.assigned_,i)?r.concat(i):void 0,c=mt(e,n,d);if(ze(s,i,c),V(c))e.canAutoFreeze_=!1;else return}else a&&s.add(n);if(P(n)&&!l){if(!e.immer_.autoFreeze_&&e.unfinalizedDrafts_<1||t&&t.base_&&t.base_[i]===n&&l)return;mt(e,n),(!t||!t.scope_.parent_)&&typeof i!="symbol"&&($(s)?s.has(i):Object.prototype.propertyIsEnumerable.call(s,i))&&Et(e,n)}}}function Et(e,t,s=!1){!e.parent_&&e.immer_.autoFreeze_&&e.canAutoFreeze_&&zt(t,s)}function js(e,t){let s=Array.isArray(e),i={type_:s?1:0,scope_:t?t.scope_:je(),modified_:!1,finalized_:!1,assigned_:{},parent_:t,base_:e,draft_:null,copy_:null,revoke_:null,isManual_:!1},n=i,r=jt;s&&(n=[i],r=ot);let{revoke:a,proxy:l}=Proxy.revocable(n,r);return i.draft_=l,i.revoke_=a,l}var jt={get(e,t){if(t===N)return e;let s=G(e);if(!nt(s,t))return Ys(e,s,t);let i=s[t];return e.finalized_||!P(i)?i:i===bt(e.base_,t)?(Dt(e),e.copy_[t]=Wt(i,e)):i},has(e,t){return t in G(e)},ownKeys(e){return Reflect.ownKeys(G(e))},set(e,t,s){let i=Ye(G(e),t);if(i!=null&&i.set)return i.set.call(e.draft_,s),!0;if(!e.modified_){let n=bt(G(e),t),r=n==null?void 0:n[N];if(r&&r.base_===s)return e.copy_[t]=s,e.assigned_[t]=!1,!0;if(Vs(s,n)&&(s!==void 0||nt(e.base_,t)))return!0;Dt(e),Vt(e)}return e.copy_[t]===s&&(s!==void 0||t in e.copy_)||Number.isNaN(s)&&Number.isNaN(e.copy_[t])||(e.copy_[t]=s,e.assigned_[t]=!0),!0},deleteProperty(e,t){return bt(e.base_,t)!==void 0||t in e.base_?(e.assigned_[t]=!1,Dt(e),Vt(e)):delete e.assigned_[t],e.copy_&&delete e.copy_[t],!0},getOwnPropertyDescriptor(e,t){let s=G(e),i=Reflect.getOwnPropertyDescriptor(s,t);return i&&{writable:!0,configurable:e.type_!==1||t!=="length",enumerable:i.enumerable,value:s[t]}},defineProperty(){C(11)},getPrototypeOf(e){return Y(e.base_)},setPrototypeOf(){C(12)}},ot={};it(jt,(e,t)=>{ot[e]=function(){return arguments[0]=arguments[0][0],t.apply(this,arguments)}});ot.deleteProperty=function(e,t){return ot.set.call(this,e,t,void 0)};ot.set=function(e,t,s){return jt.set.call(this,e[0],t,s,e[0])};function bt(e,t){let s=e[N];return(s?G(s):e)[t]}function Ys(e,t,s){var n;let i=Ye(t,s);return i?"value"in i?i.value:(n=i.get)==null?void 0:n.call(e.draft_):void 0}function Ye(e,t){if(!(t in e))return;let s=Y(e);for(;s;){let i=Object.getOwnPropertyDescriptor(s,t);if(i)return i;s=Y(s)}}function Vt(e){e.modified_||(e.modified_=!0,e.parent_&&Vt(e.parent_))}function Dt(e){e.copy_||(e.copy_=Pt(e.base_,e.scope_.immer_.useStrictShallowCopy_))}var $s=class{constructor(e){this.autoFreeze_=!0,this.useStrictShallowCopy_=!1,this.useStrictIteration_=!0,this.produce=(t,s,i)=>{if(typeof t=="function"&&typeof s!="function"){let r=s;s=t;let a=this;return function(d=r,...c){return a.produce(d,o=>s.call(this,o,...c))}}typeof s!="function"&&C(6),i!==void 0&&typeof i!="function"&&C(7);let n;if(P(t)){let r=Ve(this),a=Wt(t,void 0),l=!0;try{n=s(a),l=!1}finally{l?Ut(r):Gt(r)}return Ge(r,i),We(n,r)}else if(!t||typeof t!="object"){if(n=s(t),n===void 0&&(n=t),n===Ft&&(n=void 0),this.autoFreeze_&&zt(n,!0),i){let r=[],a=[];H("Patches").generateReplacementPatches_(t,n,r,a),i(r,a)}return n}else C(1,t)},this.produceWithPatches=(t,s)=>{if(typeof t=="function")return(a,...l)=>this.produceWithPatches(a,d=>t(d,...l));let i,n;return[this.produce(t,s,(a,l)=>{i=a,n=l}),i,n]},typeof(e==null?void 0:e.autoFreeze)=="boolean"&&this.setAutoFreeze(e.autoFreeze),typeof(e==null?void 0:e.useStrictShallowCopy)=="boolean"&&this.setUseStrictShallowCopy(e.useStrictShallowCopy),typeof(e==null?void 0:e.useStrictIteration)=="boolean"&&this.setUseStrictIteration(e.useStrictIteration)}createDraft(e){P(e)||C(8),V(e)&&(e=Ks(e));let t=Ve(this),s=Wt(e,void 0);return s[N].isManual_=!0,Gt(t),s}finishDraft(e,t){let s=e&&e[N];(!s||!s.isManual_)&&C(9);let{scope_:i}=s;return Ge(i,t),We(void 0,i)}setAutoFreeze(e){this.autoFreeze_=e}setUseStrictShallowCopy(e){this.useStrictShallowCopy_=e}setUseStrictIteration(e){this.useStrictIteration_=e}shouldUseStrictIteration(){return this.useStrictIteration_}applyPatches(e,t){let s;for(s=t.length-1;s>=0;s--){let n=t[s];if(n.path.length===0&&n.op==="replace"){e=n.value;break}}s>-1&&(t=t.slice(s+1));let i=H("Patches").applyPatches_;return V(e)?i(e,t):this.produce(e,n=>i(n,t))}};function Wt(e,t){let s=$(e)?H("MapSet").proxyMap_(e,t):at(e)?H("MapSet").proxySet_(e,t):js(e,t);return(t?t.scope_:je()).drafts_.push(s),s}function Ks(e){return V(e)||C(10,e),$e(e)}function $e(e){if(!P(e)||Ot(e))return e;let t=e[N],s,i=!0;if(t){if(!t.modified_)return t.base_;t.finalized_=!0,s=Pt(e,t.scope_.immer_.useStrictShallowCopy_),i=t.scope_.immer_.shouldUseStrictIteration()}else s=Pt(e,!0);return it(s,(n,r)=>{ze(s,n,$e(r))},i),t&&(t.finalized_=!1),s}function K(){let t="replace",s="add",i="remove";function n(h,y,m,O){switch(h.type_){case 0:case 2:return a(h,y,m,O);case 1:return r(h,y,m,O);case 3:return l(h,y,m,O)}}function r(h,y,m,O){let{base_:A,assigned_:E}=h,x=h.copy_;x.length<A.length&&([A,x]=[x,A],[m,O]=[O,m]);for(let f=0;f<A.length;f++)if(E[f]&&x[f]!==A[f]){let g=y.concat([f]);m.push({op:t,path:g,value:u(x[f])}),O.push({op:t,path:g,value:u(A[f])})}for(let f=A.length;f<x.length;f++){let g=y.concat([f]);m.push({op:s,path:g,value:u(x[f])})}for(let f=x.length-1;A.length<=f;--f){let g=y.concat([f]);O.push({op:i,path:g})}}function a(h,y,m,O){let{base_:A,copy_:E}=h;it(h.assigned_,(x,f)=>{let g=Lt(A,x),F=Lt(E,x),D=f?nt(A,x)?t:s:i;if(g===F&&D===t)return;let w=y.concat(x);m.push(D===i?{op:D,path:w}:{op:D,path:w,value:F}),O.push(D===s?{op:i,path:w}:D===i?{op:s,path:w,value:u(g)}:{op:t,path:w,value:u(g)})})}function l(h,y,m,O){let{base_:A,copy_:E}=h,x=0;A.forEach(f=>{if(!E.has(f)){let g=y.concat([x]);m.push({op:i,path:g,value:f}),O.unshift({op:s,path:g,value:f})}x++}),x=0,E.forEach(f=>{if(!A.has(f)){let g=y.concat([x]);m.push({op:s,path:g,value:f}),O.unshift({op:i,path:g,value:f})}x++})}function d(h,y,m,O){m.push({op:t,path:[],value:y===Ft?void 0:y}),O.push({op:t,path:[],value:h})}function c(h,y){return y.forEach(m=>{let{path:O,op:A}=m,E=h;for(let F=0;F<O.length-1;F++){let D=W(E),w=O[F];typeof w!="string"&&typeof w!="number"&&(w=""+w),(D===0||D===1)&&(w==="__proto__"||w==="constructor")&&C(19),typeof E=="function"&&w==="prototype"&&C(19),E=Lt(E,w),typeof E!="object"&&C(18,O.join("/"))}let x=W(E),f=o(m.value),g=O[O.length-1];switch(A){case t:switch(x){case 2:return E.set(g,f);case 3:C(16);default:return E[g]=f}case s:switch(x){case 1:return g==="-"?E.push(f):E.splice(g,0,f);case 2:return E.set(g,f);case 3:return E.add(f);default:return E[g]=f}case i:switch(x){case 1:return E.splice(g,1);case 2:return E.delete(g);case 3:return E.delete(m.value);default:return delete E[g]}default:C(17,A)}}),h}function o(h){if(!P(h))return h;if(Array.isArray(h))return h.map(o);if($(h))return new Map(Array.from(h.entries()).map(([m,O])=>[m,o(O)]));if(at(h))return new Set(Array.from(h).map(o));let y=Object.create(Y(h));for(let m in h)y[m]=o(h[m]);return nt(h,st)&&(y[st]=h[st]),y}function u(h){return V(h)?o(h):h}Hs("Patches",{applyPatches_:c,generatePatches_:n,generateReplacementPatches_:d})}var Ht=new $s,qi=Ht.produce,X=Ht.produceWithPatches.bind(Ht);var Z=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})};K();var Yt=class{constructor(t){this.messageBus=t}getItems(t){return Z(this,void 0,void 0,function*(){if(Array.isArray(t)){let{items:s}=yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_GET_ITEMS",{ids:t});return s}else if(t){let{items:s}=yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_GET_ALL_ITEMS",{});return s.filter(t)}else{let{items:s}=yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_GET_ALL_ITEMS",{});return s}})}isItemArray(t){return Array.isArray(t)&&t.every(s=>typeof s!="string")}updateItems(t,s){return Z(this,void 0,void 0,function*(){let i;this.isItemArray(t)?i=t:i=yield this.getItems(t);let[n,r]=X(i,s),a=n.map(d=>({id:d.id,type:d.type}));for(let d of r){let[c,o]=d.path;typeof c=="number"&&typeof o=="string"&&(a[c][o]=n[c][o])}let l=a.filter(d=>Object.keys(d).length>2);l.length!==0&&(yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_UPDATE_ITEMS",{updates:l}))})}addItems(t){return Z(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_ADD_ITEMS",{items:t})})}deleteItems(t){return Z(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_DELETE_ITEMS",{ids:t})})}getItemAttachments(t){return Z(this,void 0,void 0,function*(){let{items:s}=yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_GET_ITEM_ATTACHMENTS",{ids:t});return s})}getItemBounds(t){return Z(this,void 0,void 0,function*(){let{bounds:s}=yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_GET_ITEM_BOUNDS",{ids:t});return s})}onChange(t){let s=i=>{t(i.items)};return this.messageBus.send("OBR_SCENE_ITEMS_SUBSCRIBE",{}),this.messageBus.on("OBR_SCENE_ITEMS_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_SCENE_ITEMS_UNSUBSCRIBE",{}),this.messageBus.off("OBR_SCENE_ITEMS_EVENT_CHANGE",s)}}},Ke=Yt;var q=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})};K();var $t=class{constructor(t){this.messageBus=t}getItems(t){return q(this,void 0,void 0,function*(){if(Array.isArray(t)){let{items:s}=yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_GET_ITEMS",{ids:t});return s}else if(t){let{items:s}=yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_GET_ALL_ITEMS",{});return s.filter(t)}else{let{items:s}=yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_GET_ALL_ITEMS",{});return s}})}isItemArray(t){return Array.isArray(t)&&t.every(s=>typeof s!="string")}updateItems(t,s,i){return q(this,void 0,void 0,function*(){let n;this.isItemArray(t)?n=t:n=yield this.getItems(t);let[r,a]=X(n,s),l=r.map(c=>({id:c.id,type:c.type}));for(let c of a){let[o,u]=c.path;typeof o=="number"&&typeof u=="string"&&(l[o][u]=r[o][u])}let d=l.filter(c=>Object.keys(c).length>2);d.length!==0&&(yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_UPDATE_ITEMS",{updates:d,fastUpdate:i}))})}addItems(t){return q(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_ADD_ITEMS",{items:t})})}deleteItems(t){return q(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_DELETE_ITEMS",{ids:t})})}getItemAttachments(t){return q(this,void 0,void 0,function*(){let{items:s}=yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_GET_ITEM_ATTACHMENTS",{ids:t});return s})}getItemBounds(t){return q(this,void 0,void 0,function*(){let{bounds:s}=yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_GET_ITEM_BOUNDS",{ids:t});return s})}onChange(t){let s=i=>{t(i.items)};return this.messageBus.send("OBR_SCENE_LOCAL_SUBSCRIBE",{}),this.messageBus.on("OBR_SCENE_LOCAL_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_SCENE_LOCAL_UNSUBSCRIBE",{}),this.messageBus.off("OBR_SCENE_LOCAL_EVENT_CHANGE",s)}}},Xe=$t;var Kt=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},Xt=class{constructor(t){this.messageBus=t,this.grid=new Pe(t),this.fog=new De(t),this.history=new ke(t),this.items=new Ke(t),this.local=new Xe(t)}isReady(){return Kt(this,void 0,void 0,function*(){let{ready:t}=yield this.messageBus.sendAsync("OBR_SCENE_IS_READY",{});return t})}onReadyChange(t){let s=i=>{t(i.ready)};return this.messageBus.send("OBR_SCENE_READY_SUBSCRIBE",{}),this.messageBus.on("OBR_SCENE_EVENT_READY_CHANGE",s),()=>{this.messageBus.send("OBR_SCENE_READY_UNSUBSCRIBE",{}),this.messageBus.off("OBR_SCENE_EVENT_READY_CHANGE",s)}}getMetadata(){return Kt(this,void 0,void 0,function*(){let{metadata:t}=yield this.messageBus.sendAsync("OBR_SCENE_GET_METADATA",{});return t})}setMetadata(t){return Kt(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_SCENE_SET_METADATA",{update:t})})}onMetadataChange(t){let s=i=>{t(i.metadata)};return this.messageBus.send("OBR_SCENE_METADATA_SUBSCRIBE",{}),this.messageBus.on("OBR_SCENE_METADATA_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_SCENE_METADATA_UNSUBSCRIBE",{}),this.messageBus.off("OBR_SCENE_METADATA_EVENT_CHANGE",s)}}},Ze=Xt;function qe(e){return e.startsWith("http")?e:`${window.location.origin}${e}`}function k(e){return e.map(t=>Object.assign(Object.assign({},t),{icon:qe(t.icon)}))}function Q(e){return Object.assign(Object.assign({},e),{url:qe(e.url)})}var Qe=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},Zt=class{constructor(t){this.contextMenus={},this.handleClick=s=>{var i;let n=this.contextMenus[s.id];n&&((i=n.onClick)===null||i===void 0||i.call(n,s.context,s.elementId))},this.messageBus=t,t.on("OBR_CONTEXT_MENU_EVENT_CLICK",this.handleClick)}create(t){return Qe(this,void 0,void 0,function*(){this.messageBus.sendAsync("OBR_CONTEXT_MENU_CREATE",{id:t.id,shortcut:t.shortcut,icons:k(t.icons),embed:t.embed&&Q(t.embed)}),this.contextMenus[t.id]=t})}remove(t){return Qe(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_CONTEXT_MENU_REMOVE",{id:t}),delete this.contextMenus[t]})}},Je=Zt;var M=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},qt=class{constructor(t){this.tools={},this.toolActions={},this.toolModes={},this.handleToolClick=s=>{let i=this.tools[s.id];if(i)if(i.onClick){let n=i.onClick(s.context,s.elementId);Promise.resolve(n).then(r=>{r&&this.messageBus.send("OBR_TOOL_ACTIVATE",{id:s.id})})}else this.messageBus.send("OBR_TOOL_ACTIVATE",{id:s.id})},this.handleToolActionClick=s=>{var i;let n=this.toolActions[s.id];n&&((i=n.onClick)===null||i===void 0||i.call(n,s.context,s.elementId))},this.handleToolModeClick=s=>{let i=this.toolModes[s.id];if(i)if(i.onClick){let n=i.onClick(s.context,s.elementId);Promise.resolve(n).then(r=>{r&&this.messageBus.send("OBR_TOOL_MODE_ACTIVATE",{toolId:s.context.activeTool,modeId:s.id})})}else this.messageBus.send("OBR_TOOL_MODE_ACTIVATE",{toolId:s.context.activeTool,modeId:s.id})},this.handleToolModeToolClick=s=>{let i=this.toolModes[s.id];if(i)if(i.onToolClick){let n=i.onToolClick(s.context,s.event);Promise.resolve(n).then(r=>{r&&s.event.target&&!s.event.target.locked&&this.messageBus.sendAsync("OBR_PLAYER_SELECT",{items:[s.event.target.id]})})}else s.event.target&&!s.event.target.locked&&this.messageBus.sendAsync("OBR_PLAYER_SELECT",{items:[s.event.target.id]})},this.handleToolModeToolDoubleClick=s=>{let i=this.toolModes[s.id];if(i)if(i.onToolDoubleClick){let n=i.onToolDoubleClick(s.context,s.event);Promise.resolve(n).then(r=>{r&&s.event.target&&this.messageBus.sendAsync("OBR_PLAYER_SELECT",{items:[s.event.target.id]})})}else s.event.target&&this.messageBus.sendAsync("OBR_PLAYER_SELECT",{items:[s.event.target.id]})},this.handleToolModeToolDown=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onToolDown)===null||i===void 0||i.call(n,s.context,s.event))},this.handleToolModeToolMove=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onToolMove)===null||i===void 0||i.call(n,s.context,s.event))},this.handleToolModeToolUp=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onToolUp)===null||i===void 0||i.call(n,s.context,s.event))},this.handleToolModeToolDragStart=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onToolDragStart)===null||i===void 0||i.call(n,s.context,s.event))},this.handleToolModeToolDragMove=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onToolDragMove)===null||i===void 0||i.call(n,s.context,s.event))},this.handleToolModeToolDragEnd=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onToolDragEnd)===null||i===void 0||i.call(n,s.context,s.event))},this.handleToolModeToolDragCancel=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onToolDragCancel)===null||i===void 0||i.call(n,s.context,s.event))},this.handleToolModeKeyDown=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onKeyDown)===null||i===void 0||i.call(n,s.context,s.event))},this.handleToolModeKeyUp=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onKeyUp)===null||i===void 0||i.call(n,s.context,s.event))},this.handleToolModeActivate=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onActivate)===null||i===void 0||i.call(n,s.context))},this.handleToolModeDeactivate=s=>{var i;let n=this.toolModes[s.id];n&&((i=n.onDeactivate)===null||i===void 0||i.call(n,s.context))},this.messageBus=t,t.on("OBR_TOOL_EVENT_CLICK",this.handleToolClick),t.on("OBR_TOOL_ACTION_EVENT_CLICK",this.handleToolActionClick),t.on("OBR_TOOL_MODE_EVENT_CLICK",this.handleToolModeClick),t.on("OBR_TOOL_MODE_EVENT_TOOL_CLICK",this.handleToolModeToolClick),t.on("OBR_TOOL_MODE_EVENT_TOOL_DOUBLE_CLICK",this.handleToolModeToolDoubleClick),t.on("OBR_TOOL_MODE_EVENT_TOOL_DOWN",this.handleToolModeToolDown),t.on("OBR_TOOL_MODE_EVENT_TOOL_MOVE",this.handleToolModeToolMove),t.on("OBR_TOOL_MODE_EVENT_TOOL_UP",this.handleToolModeToolUp),t.on("OBR_TOOL_MODE_EVENT_TOOL_DRAG_START",this.handleToolModeToolDragStart),t.on("OBR_TOOL_MODE_EVENT_TOOL_DRAG_MOVE",this.handleToolModeToolDragMove),t.on("OBR_TOOL_MODE_EVENT_TOOL_DRAG_END",this.handleToolModeToolDragEnd),t.on("OBR_TOOL_MODE_EVENT_TOOL_DRAG_CANCEL",this.handleToolModeToolDragCancel),t.on("OBR_TOOL_MODE_EVENT_KEY_DOWN",this.handleToolModeKeyDown),t.on("OBR_TOOL_MODE_EVENT_KEY_UP",this.handleToolModeKeyUp),t.on("OBR_TOOL_MODE_EVENT_ACTIVATE",this.handleToolModeActivate),t.on("OBR_TOOL_MODE_EVENT_DEACTIVATE",this.handleToolModeDeactivate)}create(t){return M(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_TOOL_CREATE",{id:t.id,shortcut:t.shortcut,defaultMode:t.defaultMode,defaultMetadata:t.defaultMetadata,icons:k(t.icons),disabled:t.disabled}),this.tools[t.id]=t})}remove(t){return M(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_TOOL_REMOVE",{id:t}),delete this.tools[t]})}activateTool(t){return M(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_TOOL_ACTIVATE",{id:t})})}getActiveTool(){return M(this,void 0,void 0,function*(){let{id:t}=yield this.messageBus.sendAsync("OBR_TOOL_GET_ACTIVE",{});return t})}onToolChange(t){let s=i=>{t(i.id)};return this.messageBus.send("OBR_TOOL_ACTIVE_SUBSCRIBE",{}),this.messageBus.on("OBR_TOOL_ACTIVE_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_TOOL_ACTIVE_UNSUBSCRIBE",{}),this.messageBus.off("OBR_TOOL_ACTIVE_EVENT_CHANGE",s)}}getMetadata(t){return M(this,void 0,void 0,function*(){let{metadata:s}=yield this.messageBus.sendAsync("OBR_TOOL_GET_METADATA",{id:t});return s})}setMetadata(t,s){return M(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_TOOL_SET_METADATA",{toolId:t,update:s})})}createAction(t){return M(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_TOOL_ACTION_CREATE",{id:t.id,shortcut:t.shortcut,icons:k(t.icons),disabled:t.disabled}),this.toolActions[t.id]=t})}removeAction(t){return M(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_TOOL_ACTION_REMOVE",{id:t}),delete this.tools[t]})}createMode(t){return M(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_TOOL_MODE_CREATE",{id:t.id,shortcut:t.shortcut,icons:k(t.icons),preventDrag:t.preventDrag,disabled:t.disabled,cursors:t.cursors}),this.toolModes[t.id]=t})}removeMode(t){return M(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_TOOL_MODE_REMOVE",{id:t}),delete this.tools[t]})}activateMode(t,s){return M(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_TOOL_MODE_ACTIVATE",{toolId:t,modeId:s})})}getActiveToolMode(){return M(this,void 0,void 0,function*(){let{id:t}=yield this.messageBus.sendAsync("OBR_TOOL_MODE_GET_ACTIVE",{});return t})}onToolModeChange(t){let s=i=>{t(i.id)};return this.messageBus.send("OBR_TOOL_MODE_ACTIVE_SUBSCRIBE",{}),this.messageBus.on("OBR_TOOL_MODE_ACTIVE_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_TOOL_MODE_ACTIVE_UNSUBSCRIBE",{}),this.messageBus.off("OBR_TOOL_MODE_ACTIVE_EVENT_CHANGE",s)}}},ts=qt;var J=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},Qt=class{constructor(t){this.messageBus=t}open(t){return J(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_POPOVER_OPEN",Object.assign({},Q(t)))})}close(t){return J(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_POPOVER_CLOSE",{id:t})})}getWidth(t){return J(this,void 0,void 0,function*(){let{width:s}=yield this.messageBus.sendAsync("OBR_POPOVER_GET_WIDTH",{id:t});return s})}setWidth(t,s){return J(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_POPOVER_SET_WIDTH",{id:t,width:s})})}getHeight(t){return J(this,void 0,void 0,function*(){let{height:s}=yield this.messageBus.sendAsync("OBR_POPOVER_GET_HEIGHT",{id:t});return s})}setHeight(t,s){return J(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_POPOVER_SET_HEIGHT",{id:t,height:s})})}},es=Qt;var ss=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},Jt=class{constructor(t){this.messageBus=t}open(t){return ss(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_MODAL_OPEN",Object.assign({},Q(t)))})}close(t){return ss(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_MODAL_CLOSE",{id:t})})}},is=Jt;var I=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},te=class{constructor(t){this.messageBus=t}getWidth(){return I(this,void 0,void 0,function*(){let{width:t}=yield this.messageBus.sendAsync("OBR_ACTION_GET_WIDTH",{});return t})}setWidth(t){return I(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ACTION_SET_WIDTH",{width:t})})}getHeight(){return I(this,void 0,void 0,function*(){let{height:t}=yield this.messageBus.sendAsync("OBR_ACTION_GET_HEIGHT",{});return t})}setHeight(t){return I(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ACTION_SET_HEIGHT",{height:t})})}getBadgeText(){return I(this,void 0,void 0,function*(){let{badgeText:t}=yield this.messageBus.sendAsync("OBR_ACTION_GET_BADGE_TEXT",{});return t})}setBadgeText(t){return I(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ACTION_SET_BADGE_TEXT",{badgeText:t})})}getBadgeBackgroundColor(){return I(this,void 0,void 0,function*(){let{badgeBackgroundColor:t}=yield this.messageBus.sendAsync("OBR_ACTION_GET_BADGE_BACKGROUND_COLOR",{});return t})}setBadgeBackgroundColor(t){return I(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ACTION_SET_BADGE_BACKGROUND_COLOR",{badgeBackgroundColor:t})})}getIcon(){return I(this,void 0,void 0,function*(){let{icon:t}=yield this.messageBus.sendAsync("OBR_ACTION_GET_ICON",{});return t})}setIcon(t){return I(this,void 0,void 0,function*(){let s=k([{icon:t}]);yield this.messageBus.sendAsync("OBR_ACTION_SET_ICON",{icon:s[0].icon})})}getTitle(){return I(this,void 0,void 0,function*(){let{title:t}=yield this.messageBus.sendAsync("OBR_ACTION_GET_TITLE",{});return t})}setTitle(t){return I(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ACTION_SET_TITLE",{title:t})})}isOpen(){return I(this,void 0,void 0,function*(){let{isOpen:t}=yield this.messageBus.sendAsync("OBR_ACTION_GET_IS_OPEN",{});return t})}open(){return I(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ACTION_OPEN",{})})}close(){return I(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ACTION_CLOSE",{})})}onOpenChange(t){let s=i=>{t(i.isOpen)};return this.messageBus.send("OBR_ACTION_IS_OPEN_SUBSCRIBE",{}),this.messageBus.on("OBR_ACTION_IS_OPEN_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_IS_OPEN_ACTION_UNSUBSCRIBE",{}),this.messageBus.off("OBR_ACTION_IS_OPEN_EVENT_CHANGE",s)}}},ns=te;var Xs=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})};K();var ee=class{constructor(t){this.messageBus=t}startItemInteraction(t){return Xs(this,void 0,void 0,function*(){let{id:s}=yield this.messageBus.sendAsync("OBR_INTERACTION_START_ITEM_INTERACTION",{baseState:t}),i=t;return[a=>{let[l,d]=X(i,a);return i=l,this.messageBus.send("OBR_INTERACTION_UPDATE_ITEM_INTERACTION",{id:s,patches:d}),l},()=>{this.messageBus.send("OBR_INTERACTION_STOP_ITEM_INTERACTION",{id:s})}]})}},rs=ee;var Zs=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},se=class{constructor(t){this.messageBus=t}getPlayers(){return Zs(this,void 0,void 0,function*(){let{players:t}=yield this.messageBus.sendAsync("OBR_PARTY_GET_PLAYERS",{});return t})}onChange(t){let s=i=>{t(i.players)};return this.messageBus.send("OBR_PARTY_SUBSCRIBE",{}),this.messageBus.on("OBR_PARTY_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_PARTY_UNSUBSCRIBE",{}),this.messageBus.off("OBR_PARTY_EVENT_CHANGE",s)}}},os=se;var ie=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},ne=class{constructor(t){this.messageBus=t}get id(){return this.messageBus.roomId}getPermissions(){return ie(this,void 0,void 0,function*(){let{permissions:t}=yield this.messageBus.sendAsync("OBR_ROOM_GET_PERMISSIONS",{});return t})}getMetadata(){return ie(this,void 0,void 0,function*(){let{metadata:t}=yield this.messageBus.sendAsync("OBR_ROOM_GET_METADATA",{});return t})}setMetadata(t){return ie(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ROOM_SET_METADATA",{update:t})})}onMetadataChange(t){let s=i=>{t(i.metadata)};return this.messageBus.send("OBR_ROOM_METADATA_SUBSCRIBE",{}),this.messageBus.on("OBR_ROOM_METADATA_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_METADATA_ROOM_UNSUBSCRIBE",{}),this.messageBus.off("OBR_ROOM_METADATA_EVENT_CHANGE",s)}}onPermissionsChange(t){let s=i=>{t(i.permissions)};return this.messageBus.send("OBR_ROOM_PERMISSIONS_SUBSCRIBE",{}),this.messageBus.on("OBR_ROOM_PERMISSIONS_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_PERMISSIONS_ROOM_UNSUBSCRIBE",{}),this.messageBus.off("OBR_ROOM_PERMISSIONS_EVENT_CHANGE",s)}}},as=ne;var qs=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},re=class{constructor(t){this.messageBus=t}getTheme(){return qs(this,void 0,void 0,function*(){let{theme:t}=yield this.messageBus.sendAsync("OBR_THEME_GET_THEME",{});return t})}onChange(t){let s=i=>{t(i.theme)};return this.messageBus.send("OBR_THEME_SUBSCRIBE",{}),this.messageBus.on("OBR_THEME_EVENT_CHANGE",s),()=>{this.messageBus.send("OBR_THEME_UNSUBSCRIBE",{}),this.messageBus.off("OBR_THEME_EVENT_CHANGE",s)}}},us=re;var gt=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},oe=class{constructor(t){this.messageBus=t}uploadImages(t,s){return gt(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ASSETS_UPLOAD_IMAGES",{images:t,typeHint:s})})}uploadScenes(t,s){return gt(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_ASSETS_UPLOAD_SCENES",{scenes:t,disableShowScenes:s})})}downloadImages(t,s,i){return gt(this,void 0,void 0,function*(){let{images:n}=yield this.messageBus.sendAsync("OBR_ASSETS_DOWNLOAD_IMAGES",{multiple:t,defaultSearch:s,typeHint:i},-1);return n})}downloadScenes(t,s){return gt(this,void 0,void 0,function*(){let{scenes:i}=yield this.messageBus.sendAsync("OBR_ASSETS_DOWNLOAD_SCENES",{multiple:t,defaultSearch:s},-1);return i})}},cs=oe;var Qs=function(e,t,s,i){function n(r){return r instanceof s?r:new s(function(a){a(r)})}return new(s||(s=Promise))(function(r,a){function l(o){try{c(i.next(o))}catch(u){a(u)}}function d(o){try{c(i.throw(o))}catch(u){a(u)}}function c(o){o.done?r(o.value):n(o.value).then(l,d)}c((i=i.apply(e,t||[])).next())})},ae=class{constructor(t){this.messageBus=t}sendMessage(t,s,i){return Qs(this,void 0,void 0,function*(){yield this.messageBus.sendAsync("OBR_BROADCAST_SEND_MESSAGE",{channel:t,data:s,options:i})})}onMessage(t,s){return this.messageBus.send("OBR_BROADCAST_SUBSCRIBE",{channel:t}),this.messageBus.on(`OBR_BROADCAST_MESSAGE_${t}`,s),()=>{this.messageBus.send("OBR_BROADCAST_UNSUBSCRIBE",{channel:t}),this.messageBus.off(`OBR_BROADCAST_MESSAGE_${t}`,s)}}},ls=ae;var ds=typeof TextDecoder=="function"?new TextDecoder("utf-8",{ignoreBOM:!0}):void 0,Zn=typeof TextEncoder=="function"?new TextEncoder:void 0,Js="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",ut=Array.prototype.slice.call(Js),xt=(e=>{let t={};return e.forEach((s,i)=>t[s]=i),t})(ut),ti=/^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3}=?)?$/,U=String.fromCharCode.bind(String),ei=typeof Uint8Array.from=="function"?Uint8Array.from.bind(Uint8Array):e=>new Uint8Array(Array.prototype.slice.call(e,0));var hs=e=>e.replace(/[^A-Za-z0-9\+\/]/g,""),si=e=>{let t,s,i,n,r="",a=e.length%3;for(let l=0;l<e.length;){if((s=e.charCodeAt(l++))>255||(i=e.charCodeAt(l++))>255||(n=e.charCodeAt(l++))>255)throw new TypeError("invalid character found");t=s<<16|i<<8|n,r+=ut[t>>18&63]+ut[t>>12&63]+ut[t>>6&63]+ut[t&63]}return a?r.slice(0,a-3)+"===".substring(a):r},ii=typeof btoa=="function"?e=>btoa(e):si,qn=typeof Uint8Array.prototype.toBase64=="function"?Function.prototype.call.bind(Uint8Array.prototype.toBase64):e=>{let s=[];for(let i=0,n=e.length;i<n;i+=4096)s.push(U.apply(null,e.subarray(i,i+4096)));return ii(s.join(""))};var ni=/[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF7][\x80-\xBF]{3}/g,ri=e=>{switch(e.length){case 4:var t=(7&e.charCodeAt(0))<<18|(63&e.charCodeAt(1))<<12|(63&e.charCodeAt(2))<<6|63&e.charCodeAt(3),s=t-65536;return U((s>>>10)+55296)+U((s&1023)+56320);case 3:return U((15&e.charCodeAt(0))<<12|(63&e.charCodeAt(1))<<6|63&e.charCodeAt(2));default:return U((31&e.charCodeAt(0))<<6|63&e.charCodeAt(1))}},oi=e=>e.replace(ni,ri),ai=e=>{if(e=e.replace(/\s+/g,""),!ti.test(e))throw new TypeError("malformed base64.");e+="==".slice(2-(e.length&3));let t,s,i,n=[];for(let r=0;r<e.length;)t=xt[e.charAt(r++)]<<18|xt[e.charAt(r++)]<<12|(s=xt[e.charAt(r++)])<<6|(i=xt[e.charAt(r++)]),s===64?n.push(U(t>>16&255)):i===64?n.push(U(t>>16&255,t>>8&255)):n.push(U(t>>16&255,t>>8&255,t&255));return n.join("")},fs=typeof atob=="function"?e=>atob(hs(e)):ai,ui=typeof Uint8Array.fromBase64=="function"?e=>Uint8Array.fromBase64(e):e=>ei(fs(e).split("").map(t=>t.charCodeAt(0)));var ci=ds?e=>ds.decode(ui(e)):e=>oi(fs(e)),li=e=>hs(e.replace(/[-_]/g,t=>t=="-"?"+":"/")),_s=e=>ci(li(e));function ps(){let t=new URLSearchParams(window.location.search).get("obrref"),s="",i="";if(t){let r=_s(t).split(" ");r.length===2&&(s=r[0],i=r[1])}return{origin:s,roomId:i}}var ys;(function(e){e[e.MOVE=0]="MOVE",e[e.LINE=1]="LINE",e[e.QUAD=2]="QUAD",e[e.CONIC=3]="CONIC",e[e.CUBIC=4]="CUBIC",e[e.CLOSE=5]="CLOSE"})(ys||(ys={}));var ue=ps(),v=new Me(ue.origin,ue.roomId),hi=new me(v),fi=new ye(v),_i=new os(v),pi=new be(v),yi=new Ze(v),mi=new Je(v),Ei=new ts(v),Oi=new es(v),gi=new is(v),xi=new ns(v),Ti=new rs(v),Ai=new as(v),vi=new us(v),Bi=new cs(v),Ri=new ls(v),Ci={onReady:e=>{v.ready?e():v.once("OBR_READY",()=>e())},get isReady(){return v.ready},viewport:hi,player:fi,party:_i,notification:pi,scene:yi,contextMenu:mi,tool:Ei,popover:Oi,modal:gi,action:xi,interaction:Ti,room:Ai,theme:vi,assets:Bi,broadcast:Ri,isAvailable:!!ue.origin};var T=Ci;var de="blocca-tavolo:v2",ms="it.blocca-tavolo/cmd",Si={isTable:!1,mode:"scale",diagonal:27,resW:0,resH:0,cellInches:1,correction:1,lockedPos:null},le="it.blocca-tavolo/state",tt=null;function Ii(){try{let e="__blocca_tavolo_test";return localStorage.setItem(e,"1"),localStorage.removeItem(e),!0}catch{return!1}}function ct(){return tt||(tt=Ii()?"local":"room"),tt}function ce(e){return e=e||{},{cfg:{...Si,...e.cfg||{}},paused:!!e.paused}}async function lt(){if(ct(),tt==="local")try{return ce(JSON.parse(localStorage.getItem(de)||"{}"))}catch{return ce()}let[e,t]=await Promise.all([T.player.getName(),T.room.getMetadata()]),s=t[le]||{};return ce(s[e])}async function Es(e){ct();let t=await lt(),s={cfg:{...t.cfg,...e.cfg||{}},paused:e.paused!==void 0?!!e.paused:t.paused};if(tt==="local")localStorage.setItem(de,JSON.stringify(s));else{let[i,n]=await Promise.all([T.player.getName(),T.room.getMetadata()]),r={...n[le]||{}};r[i]=s,await T.room.setMetadata({[le]:r})}return s}function Os(e){if(ct(),tt==="local"){let t=s=>{s.key===de&&e()};return window.addEventListener("storage",t),()=>window.removeEventListener("storage",t)}return T.room.onMetadataChange(()=>e())}function he(){let e=window.devicePixelRatio||1;return{w:Math.round(screen.width*e),h:Math.round(screen.height*e)}}function fe(e){return e.resW>0&&e.resH>0?{w:e.resW,h:e.resH}:he()}function _e(e){let t=fe(e);return Math.hypot(t.w,t.h)/Math.max(e.diagonal,1)}function gs(e){let t=window.devicePixelRatio||1;return _e(e)*e.cellInches*e.correction/t}var _=e=>document.getElementById(e),dt=(e,t=1)=>Number(e).toLocaleString("it-IT",{maximumFractionDigits:t,minimumFractionDigits:t});function xs(e){let t=document.documentElement.style;t.setProperty("--bg",e.background.paper),t.setProperty("--bg-2",e.background.default),t.setProperty("--text",e.text.primary),t.setProperty("--text-2",e.text.secondary),t.setProperty("--accent",e.primary.main),t.setProperty("--accent-text",e.primary.contrastText),document.documentElement.dataset.mode=e.mode.toLowerCase()}function et(e,t="LOCAL"){return T.broadcast.sendMessage(ms,{action:e},{destination:t})}T.onReady(async()=>{xs(await T.theme.getTheme()),T.theme.onChange(xs);let e=await T.player.getRole();_("gm-section").hidden=e!=="GM";let t=ct(),{cfg:s,paused:i}=await lt();async function n(){let o=_("store-note");if(t==="room"){let u=await T.player.getName();o.textContent=`Il browser blocca l\u2019archiviazione locale (finestra in incognito?). Le impostazioni vengono salvate nella stanza per il giocatore \u201C${u}\u201D: usate sempre questo nome nella finestra del tavolo.`,o.hidden=!1}else o.hidden=!0}n(),T.player.onChange(async()=>{n(),{cfg:s,paused:i}=await lt(),l()});let r=he();_("res-detected").textContent=`${r.w} \xD7 ${r.h}`;async function a(o){s={...s,...o},l();try{({cfg:s,paused:i}=await Es({cfg:o}))}catch(u){console.warn("Blocca Tavolo:",u),T.notification.show("Impossibile salvare le impostazioni.","ERROR")}l()}function l(){_("is-table").checked=s.isTable,_("table-settings").hidden=!s.isTable;let o=_("state"),u,h,y;if(s.isTable?s.mode==="off"?(y="idle",u="Blocco spento",h="Zoom e vista si possono muovere liberamente."):i?(y="paused",u="In pausa",h="Il master ha sbloccato il tavolo. Premi \u201CBlocca qui\u201D per riprendere."):(y="locked",u=s.mode==="full"?"Zoom e posizione bloccati":"Zoom bloccato",h=s.mode==="full"?"Ogni spostamento accidentale viene annullato.":"La mappa si pu\xF2 spostare, la scala resta fissa."):(y="idle",u="Dispositivo libero",h="Attiva l\u2019opzione qui sotto solo sul monitor del tavolo."),o.dataset.kind=y,_("state-title").textContent=u,_("state-detail").textContent=h,!s.isTable)return;document.querySelectorAll("[data-mode]").forEach(E=>E.setAttribute("aria-pressed",String(E.dataset.mode===s.mode))),_("diagonal").value=s.diagonal,_("cell").value=s.cellInches,_("res-w").value=s.resW||"",_("res-h").value=s.resH||"";let m=fe(s),O=s.cellInches*25.4,A=gs(s)*(window.devicePixelRatio||1);_("readout").textContent=`Quadretto di ${dt(O)} mm, pari a ${dt(A,0)} pixel su ${m.w} \xD7 ${m.h} (${dt(_e(s),0)} ppi). Correzione: ${dt(s.correction*100,1)}%.`,_("expected").textContent=`${dt(O*10,0)} mm`}_("is-table").addEventListener("change",o=>{a({isTable:o.target.checked,lockedPos:null})}),document.querySelectorAll("[data-mode]").forEach(o=>o.addEventListener("click",()=>a({mode:o.dataset.mode,lockedPos:null})));let d=(o,u)=>{let h=parseFloat(String(o.value).replace(",","."));return Number.isFinite(h)&&h>=u?h:null};_("diagonal").addEventListener("change",o=>{let u=d(o.target,5);u?a({diagonal:u,lockedPos:null}):l()}),_("cell").addEventListener("change",o=>{let u=d(o.target,.1);u?a({cellInches:u,lockedPos:null}):l()});let c=()=>{let o=d(_("res-w"),1)||0,u=d(_("res-h"),1)||0;a({resW:o&&u?o:0,resH:o&&u?u:0,lockedPos:null})};_("res-w").addEventListener("change",c),_("res-h").addEventListener("change",c),_("measure-apply").addEventListener("click",()=>{let o=d(_("measured"),1);if(!o){T.notification.show("Inserisci la misura di 10 quadretti in millimetri.","WARNING");return}let u=s.cellInches*25.4*10;a({correction:s.correction*(u/o),lockedPos:null}),_("measured").value="",et("apply-now"),T.notification.show("Correzione applicata. Rimisura per conferma.","SUCCESS")}),_("measure-reset").addEventListener("click",()=>{a({correction:1,lockedPos:null}),et("apply-now")}),_("apply-now").addEventListener("click",()=>et("apply-now")),_("lock-here").addEventListener("click",()=>et("lock-here")),_("gm-pause").addEventListener("click",async()=>{await et("pause","ALL"),T.notification.show("Tavolo sbloccato: ora puoi spostare la vista con Sync View.","INFO")}),_("gm-lock").addEventListener("click",async()=>{await et("lock-here","ALL"),T.notification.show("Tavolo bloccato nella posizione attuale.","SUCCESS")}),Os(async()=>{({cfg:s,paused:i}=await lt()),l()}),l()});})();
+(() => {
+  var Ts = Object.create;
+  var pe = Object.defineProperty;
+  var As = Object.getOwnPropertyDescriptor;
+  var vs = Object.getOwnPropertyNames;
+  var Bs = Object.getPrototypeOf,
+    Rs = Object.prototype.hasOwnProperty;
+  var Cs = (e, t) => () => {
+    try {
+      return (t || e((t = { exports: {} }).exports, t), t.exports);
+    } catch (s) {
+      throw ((t = 0), s);
+    }
+  };
+  var Ss = (e, t, s, i) => {
+    if ((t && typeof t == "object") || typeof t == "function")
+      for (let n of vs(t))
+        !Rs.call(e, n) &&
+          n !== s &&
+          pe(e, n, {
+            get: () => t[n],
+            enumerable: !(i = As(t, n)) || i.enumerable,
+          });
+    return e;
+  };
+  var Is = (e, t, s) => (
+    (s = e != null ? Ts(Bs(e)) : {}),
+    Ss(
+      t || !e || !e.__esModule
+        ? pe(s, "default", { value: e, enumerable: !0 })
+        : s,
+      e,
+    )
+  );
+  var Ie = Cs((bi, vt) => {
+    "use strict";
+    var z = typeof Reflect == "object" ? Reflect : null,
+      Oe =
+        z && typeof z.apply == "function"
+          ? z.apply
+          : function (t, s, i) {
+              return Function.prototype.apply.call(t, s, i);
+            },
+      ht;
+    z && typeof z.ownKeys == "function"
+      ? (ht = z.ownKeys)
+      : Object.getOwnPropertySymbols
+        ? (ht = function (t) {
+            return Object.getOwnPropertyNames(t).concat(
+              Object.getOwnPropertySymbols(t),
+            );
+          })
+        : (ht = function (t) {
+            return Object.getOwnPropertyNames(t);
+          });
+    function ws(e) {
+      console && console.warn && console.warn(e);
+    }
+    var xe =
+      Number.isNaN ||
+      function (t) {
+        return t !== t;
+      };
+    function p() {
+      p.init.call(this);
+    }
+    vt.exports = p;
+    vt.exports.once = bs;
+    p.EventEmitter = p;
+    p.prototype._events = void 0;
+    p.prototype._eventsCount = 0;
+    p.prototype._maxListeners = void 0;
+    var ge = 10;
+    function ft(e) {
+      if (typeof e != "function")
+        throw new TypeError(
+          'The "listener" argument must be of type Function. Received type ' +
+            typeof e,
+        );
+    }
+    Object.defineProperty(p, "defaultMaxListeners", {
+      enumerable: !0,
+      get: function () {
+        return ge;
+      },
+      set: function (e) {
+        if (typeof e != "number" || e < 0 || xe(e))
+          throw new RangeError(
+            'The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received ' +
+              e +
+              ".",
+          );
+        ge = e;
+      },
+    });
+    p.init = function () {
+      ((this._events === void 0 ||
+        this._events === Object.getPrototypeOf(this)._events) &&
+        ((this._events = Object.create(null)), (this._eventsCount = 0)),
+        (this._maxListeners = this._maxListeners || void 0));
+    };
+    p.prototype.setMaxListeners = function (t) {
+      if (typeof t != "number" || t < 0 || xe(t))
+        throw new RangeError(
+          'The value of "n" is out of range. It must be a non-negative number. Received ' +
+            t +
+            ".",
+        );
+      return ((this._maxListeners = t), this);
+    };
+    function Te(e) {
+      return e._maxListeners === void 0
+        ? p.defaultMaxListeners
+        : e._maxListeners;
+    }
+    p.prototype.getMaxListeners = function () {
+      return Te(this);
+    };
+    p.prototype.emit = function (t) {
+      for (var s = [], i = 1; i < arguments.length; i++) s.push(arguments[i]);
+      var n = t === "error",
+        r = this._events;
+      if (r !== void 0) n = n && r.error === void 0;
+      else if (!n) return !1;
+      if (n) {
+        var a;
+        if ((s.length > 0 && (a = s[0]), a instanceof Error)) throw a;
+        var l = new Error(
+          "Unhandled error." + (a ? " (" + a.message + ")" : ""),
+        );
+        throw ((l.context = a), l);
+      }
+      var d = r[t];
+      if (d === void 0) return !1;
+      if (typeof d == "function") Oe(d, this, s);
+      else
+        for (var c = d.length, o = Ce(d, c), i = 0; i < c; ++i)
+          Oe(o[i], this, s);
+      return !0;
+    };
+    function Ae(e, t, s, i) {
+      var n, r, a;
+      if (
+        (ft(s),
+        (r = e._events),
+        r === void 0
+          ? ((r = e._events = Object.create(null)), (e._eventsCount = 0))
+          : (r.newListener !== void 0 &&
+              (e.emit("newListener", t, s.listener ? s.listener : s),
+              (r = e._events)),
+            (a = r[t])),
+        a === void 0)
+      )
+        ((a = r[t] = s), ++e._eventsCount);
+      else if (
+        (typeof a == "function"
+          ? (a = r[t] = i ? [s, a] : [a, s])
+          : i
+            ? a.unshift(s)
+            : a.push(s),
+        (n = Te(e)),
+        n > 0 && a.length > n && !a.warned)
+      ) {
+        a.warned = !0;
+        var l = new Error(
+          "Possible EventEmitter memory leak detected. " +
+            a.length +
+            " " +
+            String(t) +
+            " listeners added. Use emitter.setMaxListeners() to increase limit",
+        );
+        ((l.name = "MaxListenersExceededWarning"),
+          (l.emitter = e),
+          (l.type = t),
+          (l.count = a.length),
+          ws(l));
+      }
+      return e;
+    }
+    p.prototype.addListener = function (t, s) {
+      return Ae(this, t, s, !1);
+    };
+    p.prototype.on = p.prototype.addListener;
+    p.prototype.prependListener = function (t, s) {
+      return Ae(this, t, s, !0);
+    };
+    function Ns() {
+      if (!this.fired)
+        return (
+          this.target.removeListener(this.type, this.wrapFn),
+          (this.fired = !0),
+          arguments.length === 0
+            ? this.listener.call(this.target)
+            : this.listener.apply(this.target, arguments)
+        );
+    }
+    function ve(e, t, s) {
+      var i = { fired: !1, wrapFn: void 0, target: e, type: t, listener: s },
+        n = Ns.bind(i);
+      return ((n.listener = s), (i.wrapFn = n), n);
+    }
+    p.prototype.once = function (t, s) {
+      return (ft(s), this.on(t, ve(this, t, s)), this);
+    };
+    p.prototype.prependOnceListener = function (t, s) {
+      return (ft(s), this.prependListener(t, ve(this, t, s)), this);
+    };
+    p.prototype.removeListener = function (t, s) {
+      var i, n, r, a, l;
+      if ((ft(s), (n = this._events), n === void 0)) return this;
+      if (((i = n[t]), i === void 0)) return this;
+      if (i === s || i.listener === s)
+        --this._eventsCount === 0
+          ? (this._events = Object.create(null))
+          : (delete n[t],
+            n.removeListener &&
+              this.emit("removeListener", t, i.listener || s));
+      else if (typeof i != "function") {
+        for (r = -1, a = i.length - 1; a >= 0; a--)
+          if (i[a] === s || i[a].listener === s) {
+            ((l = i[a].listener), (r = a));
+            break;
+          }
+        if (r < 0) return this;
+        (r === 0 ? i.shift() : Ms(i, r),
+          i.length === 1 && (n[t] = i[0]),
+          n.removeListener !== void 0 &&
+            this.emit("removeListener", t, l || s));
+      }
+      return this;
+    };
+    p.prototype.off = p.prototype.removeListener;
+    p.prototype.removeAllListeners = function (t) {
+      var s, i, n;
+      if (((i = this._events), i === void 0)) return this;
+      if (i.removeListener === void 0)
+        return (
+          arguments.length === 0
+            ? ((this._events = Object.create(null)), (this._eventsCount = 0))
+            : i[t] !== void 0 &&
+              (--this._eventsCount === 0
+                ? (this._events = Object.create(null))
+                : delete i[t]),
+          this
+        );
+      if (arguments.length === 0) {
+        var r = Object.keys(i),
+          a;
+        for (n = 0; n < r.length; ++n)
+          ((a = r[n]), a !== "removeListener" && this.removeAllListeners(a));
+        return (
+          this.removeAllListeners("removeListener"),
+          (this._events = Object.create(null)),
+          (this._eventsCount = 0),
+          this
+        );
+      }
+      if (((s = i[t]), typeof s == "function")) this.removeListener(t, s);
+      else if (s !== void 0)
+        for (n = s.length - 1; n >= 0; n--) this.removeListener(t, s[n]);
+      return this;
+    };
+    function Be(e, t, s) {
+      var i = e._events;
+      if (i === void 0) return [];
+      var n = i[t];
+      return n === void 0
+        ? []
+        : typeof n == "function"
+          ? s
+            ? [n.listener || n]
+            : [n]
+          : s
+            ? Ls(n)
+            : Ce(n, n.length);
+    }
+    p.prototype.listeners = function (t) {
+      return Be(this, t, !0);
+    };
+    p.prototype.rawListeners = function (t) {
+      return Be(this, t, !1);
+    };
+    p.listenerCount = function (e, t) {
+      return typeof e.listenerCount == "function"
+        ? e.listenerCount(t)
+        : Re.call(e, t);
+    };
+    p.prototype.listenerCount = Re;
+    function Re(e) {
+      var t = this._events;
+      if (t !== void 0) {
+        var s = t[e];
+        if (typeof s == "function") return 1;
+        if (s !== void 0) return s.length;
+      }
+      return 0;
+    }
+    p.prototype.eventNames = function () {
+      return this._eventsCount > 0 ? ht(this._events) : [];
+    };
+    function Ce(e, t) {
+      for (var s = new Array(t), i = 0; i < t; ++i) s[i] = e[i];
+      return s;
+    }
+    function Ms(e, t) {
+      for (; t + 1 < e.length; t++) e[t] = e[t + 1];
+      e.pop();
+    }
+    function Ls(e) {
+      for (var t = new Array(e.length), s = 0; s < t.length; ++s)
+        t[s] = e[s].listener || e[s];
+      return t;
+    }
+    function bs(e, t) {
+      return new Promise(function (s, i) {
+        function n(a) {
+          (e.removeListener(t, r), i(a));
+        }
+        function r() {
+          (typeof e.removeListener == "function" &&
+            e.removeListener("error", n),
+            s([].slice.call(arguments)));
+        }
+        (Se(e, t, r, { once: !0 }), t !== "error" && Ds(e, n, { once: !0 }));
+      });
+    }
+    function Ds(e, t, s) {
+      typeof e.on == "function" && Se(e, "error", t, s);
+    }
+    function Se(e, t, s, i) {
+      if (typeof e.on == "function") i.once ? e.once(t, s) : e.on(t, s);
+      else if (typeof e.addEventListener == "function")
+        e.addEventListener(t, function n(r) {
+          (i.once && e.removeEventListener(t, n), s(r));
+        });
+      else
+        throw new TypeError(
+          'The "emitter" argument must be of type EventEmitter. Received type ' +
+            typeof e,
+        );
+    }
+  });
+  var S = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    Tt = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      get id() {
+        if (!this.messageBus.userId)
+          throw Error("Unable to get user ID: not ready");
+        return this.messageBus.userId;
+      }
+      getSelection() {
+        return S(this, void 0, void 0, function* () {
+          let { selection: t } = yield this.messageBus.sendAsync(
+            "OBR_PLAYER_GET_SELECTION",
+            {},
+          );
+          return t;
+        });
+      }
+      select(t, s) {
+        return S(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_PLAYER_SELECT", {
+            items: t,
+            replace: s,
+          });
+        });
+      }
+      deselect(t) {
+        return S(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_PLAYER_DESELECT", { items: t });
+        });
+      }
+      getName() {
+        return S(this, void 0, void 0, function* () {
+          let { name: t } = yield this.messageBus.sendAsync(
+            "OBR_PLAYER_GET_NAME",
+            {},
+          );
+          return t;
+        });
+      }
+      setName(t) {
+        return S(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_PLAYER_SET_NAME", { name: t });
+        });
+      }
+      getColor() {
+        return S(this, void 0, void 0, function* () {
+          let { color: t } = yield this.messageBus.sendAsync(
+            "OBR_PLAYER_GET_COLOR",
+            {},
+          );
+          return t;
+        });
+      }
+      setColor(t) {
+        return S(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_PLAYER_SET_COLOR", { color: t });
+        });
+      }
+      getSyncView() {
+        return S(this, void 0, void 0, function* () {
+          let { syncView: t } = yield this.messageBus.sendAsync(
+            "OBR_PLAYER_GET_SYNC_VIEW",
+            {},
+          );
+          return t;
+        });
+      }
+      setSyncView(t) {
+        return S(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_PLAYER_SET_SYNC_VIEW", {
+            syncView: t,
+          });
+        });
+      }
+      getId() {
+        return S(this, void 0, void 0, function* () {
+          let { id: t } = yield this.messageBus.sendAsync(
+            "OBR_PLAYER_GET_ID",
+            {},
+          );
+          return t;
+        });
+      }
+      getRole() {
+        return S(this, void 0, void 0, function* () {
+          let { role: t } = yield this.messageBus.sendAsync(
+            "OBR_PLAYER_GET_ROLE",
+            {},
+          );
+          return t;
+        });
+      }
+      getMetadata() {
+        return S(this, void 0, void 0, function* () {
+          let { metadata: t } = yield this.messageBus.sendAsync(
+            "OBR_PLAYER_GET_METADATA",
+            {},
+          );
+          return t;
+        });
+      }
+      setMetadata(t) {
+        return S(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_PLAYER_SET_METADATA", {
+            update: t,
+          });
+        });
+      }
+      hasPermission(t) {
+        return S(this, void 0, void 0, function* () {
+          if ((yield this.getRole()) === "GM") return !0;
+          let { permissions: i } = yield this.messageBus.sendAsync(
+            "OBR_ROOM_GET_PERMISSIONS",
+            {},
+          );
+          return i.indexOf(t) > -1;
+        });
+      }
+      getConnectionId() {
+        return S(this, void 0, void 0, function* () {
+          let { connectionId: t } = yield this.messageBus.sendAsync(
+            "OBR_PLAYER_GET_CONNECTION_ID",
+            {},
+          );
+          return t;
+        });
+      }
+      onChange(t) {
+        let s = (i) => {
+          t(i.player);
+        };
+        return (
+          this.messageBus.send("OBR_PLAYER_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_PLAYER_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_PLAYER_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_PLAYER_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    ye = Tt;
+  var b = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    At = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      reset() {
+        return b(this, void 0, void 0, function* () {
+          let { transform: t } = yield this.messageBus.sendAsync(
+            "OBR_VIEWPORT_RESET",
+            {},
+          );
+          return t;
+        });
+      }
+      animateTo(t) {
+        return b(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_VIEWPORT_ANIMATE_TO", {
+            transform: t,
+          });
+        });
+      }
+      animateToBounds(t) {
+        return b(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_VIEWPORT_ANIMATE_TO_BOUNDS", {
+            bounds: t,
+          });
+        });
+      }
+      getPosition() {
+        return b(this, void 0, void 0, function* () {
+          let { position: t } = yield this.messageBus.sendAsync(
+            "OBR_VIEWPORT_GET_POSITION",
+            {},
+          );
+          return t;
+        });
+      }
+      setPosition(t) {
+        return b(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_VIEWPORT_SET_POSITION", {
+            position: t,
+          });
+        });
+      }
+      getScale() {
+        return b(this, void 0, void 0, function* () {
+          let { scale: t } = yield this.messageBus.sendAsync(
+            "OBR_VIEWPORT_GET_SCALE",
+            {},
+          );
+          return t;
+        });
+      }
+      setScale(t) {
+        return b(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_VIEWPORT_SET_SCALE", {
+            scale: t,
+          });
+        });
+      }
+      getWidth() {
+        return b(this, void 0, void 0, function* () {
+          let { width: t } = yield this.messageBus.sendAsync(
+            "OBR_VIEWPORT_GET_WIDTH",
+            {},
+          );
+          return t;
+        });
+      }
+      getHeight() {
+        return b(this, void 0, void 0, function* () {
+          let { height: t } = yield this.messageBus.sendAsync(
+            "OBR_VIEWPORT_GET_HEIGHT",
+            {},
+          );
+          return t;
+        });
+      }
+      transformPoint(t) {
+        return b(this, void 0, void 0, function* () {
+          let { point: s } = yield this.messageBus.sendAsync(
+            "OBR_VIEWPORT_TRANSFORM_POINT",
+            { point: t },
+          );
+          return s;
+        });
+      }
+      inverseTransformPoint(t) {
+        return b(this, void 0, void 0, function* () {
+          let { point: s } = yield this.messageBus.sendAsync(
+            "OBR_VIEWPORT_INVERSE_TRANSFORM_POINT",
+            { point: t },
+          );
+          return s;
+        });
+      }
+    },
+    me = At;
+  function Ee(e) {
+    return typeof e.id == "string";
+  }
+  var Ne = Is(Ie());
+  var _t,
+    Ps = new Uint8Array(16);
+  function Bt() {
+    if (
+      !_t &&
+      ((_t =
+        typeof crypto != "undefined" &&
+        crypto.getRandomValues &&
+        crypto.getRandomValues.bind(crypto)),
+      !_t)
+    )
+      throw new Error(
+        "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported",
+      );
+    return _t(Ps);
+  }
+  var B = [];
+  for (let e = 0; e < 256; ++e) B.push((e + 256).toString(16).slice(1));
+  function we(e, t = 0) {
+    return (
+      B[e[t + 0]] +
+      B[e[t + 1]] +
+      B[e[t + 2]] +
+      B[e[t + 3]] +
+      "-" +
+      B[e[t + 4]] +
+      B[e[t + 5]] +
+      "-" +
+      B[e[t + 6]] +
+      B[e[t + 7]] +
+      "-" +
+      B[e[t + 8]] +
+      B[e[t + 9]] +
+      "-" +
+      B[e[t + 10]] +
+      B[e[t + 11]] +
+      B[e[t + 12]] +
+      B[e[t + 13]] +
+      B[e[t + 14]] +
+      B[e[t + 15]]
+    );
+  }
+  var ks =
+      typeof crypto != "undefined" &&
+      crypto.randomUUID &&
+      crypto.randomUUID.bind(crypto),
+    Rt = { randomUUID: ks };
+  function Us(e, t, s) {
+    if (Rt.randomUUID && !t && !e) return Rt.randomUUID();
+    e = e || {};
+    let i = e.random || (e.rng || Bt)();
+    if (((i[6] = (i[6] & 15) | 64), (i[8] = (i[8] & 63) | 128), t)) {
+      s = s || 0;
+      for (let n = 0; n < 16; ++n) t[s + n] = i[n];
+      return t;
+    }
+    return we(i);
+  }
+  var Ct = Us;
+  var St = class extends Ne.EventEmitter {
+      constructor(t, s) {
+        (super(),
+          (this.ready = !1),
+          (this.userId = null),
+          (this.ref = null),
+          (this.handleMessage = (i) => {
+            let n = i.data;
+            if (i.origin === this.targetOrigin && Ee(n)) {
+              if (n.id === "OBR_READY") {
+                this.ready = !0;
+                let r = n.data;
+                ((this.ref = r.ref), (this.userId = r.userId));
+              }
+              this.emit(n.id, n.data);
+            }
+          }),
+          (this.send = (i, n, r) => {
+            var a;
+            if (!this.ref) throw Error("Unable to send message: not ready");
+            (a = window.parent) === null ||
+              a === void 0 ||
+              a.postMessage(
+                { id: i, data: n, ref: this.ref, nonce: r },
+                this.targetOrigin,
+              );
+          }),
+          (this.sendAsync = (i, n, r = 5e3) => {
+            let a = `_${Ct()}`;
+            return (
+              this.send(i, n, a),
+              Promise.race([
+                new Promise((l, d) => {
+                  let c = this;
+                  function o(h) {
+                    (c.off(`${i}_RESPONSE${a}`, o),
+                      c.off(`${i}_ERROR${a}`, u),
+                      l(h));
+                  }
+                  function u(h) {
+                    (c.off(`${i}_RESPONSE${a}`, o),
+                      c.off(`${i}_ERROR${a}`, u),
+                      d(h));
+                  }
+                  (this.on(`${i}_RESPONSE${a}`, o),
+                    this.on(`${i}_ERROR${a}`, u));
+                }),
+                ...(r > 0
+                  ? [
+                      new Promise((l, d) =>
+                        window.setTimeout(
+                          () =>
+                            d(
+                              new Error(
+                                `Message ${i} took longer than ${r}ms to get a result`,
+                              ),
+                            ),
+                          r,
+                        ),
+                      ),
+                    ]
+                  : []),
+              ])
+            );
+          }),
+          (this.roomId = s),
+          (this.targetOrigin = t),
+          window.addEventListener("message", this.handleMessage),
+          this.setMaxListeners(100));
+      }
+      destroy() {
+        window.removeEventListener("message", this.handleMessage);
+      }
+    },
+    Me = St;
+  var Le = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    It = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      show(t, s) {
+        return Le(this, void 0, void 0, function* () {
+          let { id: i } = yield this.messageBus.sendAsync(
+            "OBR_NOTIFICATION_SHOW",
+            { message: t, variant: s },
+          );
+          return i;
+        });
+      }
+      close(t) {
+        return Le(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_NOTIFICATION_CLOSE", { id: t });
+        });
+      }
+    },
+    be = It;
+  var j = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    wt = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      getColor() {
+        return j(this, void 0, void 0, function* () {
+          let { color: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_FOG_GET_COLOR",
+            {},
+          );
+          return t;
+        });
+      }
+      setColor(t) {
+        return j(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_FOG_SET_COLOR", {
+            color: t,
+          });
+        });
+      }
+      getStrokeWidth() {
+        return j(this, void 0, void 0, function* () {
+          let { strokeWidth: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_FOG_GET_STROKE_WIDTH",
+            {},
+          );
+          return t;
+        });
+      }
+      setStrokeWidth(t) {
+        return j(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_FOG_SET_STROKE_WIDTH", {
+            strokeWidth: t,
+          });
+        });
+      }
+      getFilled() {
+        return j(this, void 0, void 0, function* () {
+          let { filled: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_FOG_GET_FILLED",
+            {},
+          );
+          return t;
+        });
+      }
+      setFilled(t) {
+        return j(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_FOG_SET_FILLED", {
+            filled: t,
+          });
+        });
+      }
+      onChange(t) {
+        let s = (i) => {
+          t(i.fog);
+        };
+        return (
+          this.messageBus.send("OBR_SCENE_FOG_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_SCENE_FOG_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_SCENE_FOG_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_SCENE_FOG_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    De = wt;
+  var R = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    Nt = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      getDpi() {
+        return R(this, void 0, void 0, function* () {
+          let { dpi: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_GET_DPI",
+            {},
+          );
+          return t;
+        });
+      }
+      getScale() {
+        return R(this, void 0, void 0, function* () {
+          return yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_GET_SCALE",
+            {},
+          );
+        });
+      }
+      setScale(t) {
+        return R(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_SCALE", {
+            scale: t,
+          });
+        });
+      }
+      getColor() {
+        return R(this, void 0, void 0, function* () {
+          let { color: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_GET_COLOR",
+            {},
+          );
+          return t;
+        });
+      }
+      setColor(t) {
+        return R(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_COLOR", {
+            color: t,
+          });
+        });
+      }
+      getOpacity() {
+        return R(this, void 0, void 0, function* () {
+          let { opacity: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_GET_OPACITY",
+            {},
+          );
+          return t;
+        });
+      }
+      setOpacity(t) {
+        return R(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_OPACITY", {
+            opacity: t,
+          });
+        });
+      }
+      getType() {
+        return R(this, void 0, void 0, function* () {
+          let { type: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_GET_TYPE",
+            {},
+          );
+          return t;
+        });
+      }
+      setType(t) {
+        return R(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_TYPE", {
+            type: t,
+          });
+        });
+      }
+      getLineType() {
+        return R(this, void 0, void 0, function* () {
+          let { lineType: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_GET_LINE_TYPE",
+            {},
+          );
+          return t;
+        });
+      }
+      setLineType(t) {
+        return R(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_LINE_TYPE", {
+            lineType: t,
+          });
+        });
+      }
+      getMeasurement() {
+        return R(this, void 0, void 0, function* () {
+          let { measurement: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_GET_MEASUREMENT",
+            {},
+          );
+          return t;
+        });
+      }
+      setMeasurement(t) {
+        return R(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_MEASUREMENT", {
+            measurement: t,
+          });
+        });
+      }
+      getLineWidth() {
+        return R(this, void 0, void 0, function* () {
+          let { lineWidth: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_GET_LINE_WIDTH",
+            {},
+          );
+          return t;
+        });
+      }
+      setLineWidth(t) {
+        return R(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_GRID_SET_LINE_WIDTH", {
+            lineWidth: t,
+          });
+        });
+      }
+      snapPosition(t, s, i, n) {
+        return R(this, void 0, void 0, function* () {
+          let { position: r } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_SNAP_POSITION",
+            {
+              position: t,
+              snappingSensitivity: s,
+              useCorners: i,
+              useCenter: n,
+            },
+          );
+          return r;
+        });
+      }
+      getDistance(t, s) {
+        return R(this, void 0, void 0, function* () {
+          let { distance: i } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GRID_GET_DISTANCE",
+            { from: t, to: s },
+          );
+          return i;
+        });
+      }
+      onChange(t) {
+        let s = (i) => {
+          t(i.grid);
+        };
+        return (
+          this.messageBus.send("OBR_SCENE_GRID_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_SCENE_GRID_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_SCENE_GRID_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_SCENE_GRID_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    Pe = Nt;
+  var pt = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    Mt = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      undo() {
+        return pt(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_HISTORY_UNDO", {});
+        });
+      }
+      redo() {
+        return pt(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_HISTORY_REDO", {});
+        });
+      }
+      canUndo() {
+        return pt(this, void 0, void 0, function* () {
+          let { canUndo: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_HISTORY_CAN_UNDO",
+            {},
+          );
+          return t;
+        });
+      }
+      canRedo() {
+        return pt(this, void 0, void 0, function* () {
+          let { canRedo: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_HISTORY_CAN_REDO",
+            {},
+          );
+          return t;
+        });
+      }
+    },
+    ke = Mt;
+  var Ft = Symbol.for("immer-nothing"),
+    st = Symbol.for("immer-draftable"),
+    N = Symbol.for("immer-state");
+  function C(e, ...t) {
+    throw new Error(
+      `[Immer] minified error nr: ${e}. Full error at: https://bit.ly/3cXEKWf`,
+    );
+  }
+  var Y = Object.getPrototypeOf;
+  function V(e) {
+    return !!e && !!e[N];
+  }
+  function P(e) {
+    var t;
+    return e
+      ? Fe(e) ||
+          Array.isArray(e) ||
+          !!e[st] ||
+          !!((t = e.constructor) != null && t[st]) ||
+          $(e) ||
+          at(e)
+      : !1;
+  }
+  var Gs = Object.prototype.constructor.toString(),
+    Ue = new WeakMap();
+  function Fe(e) {
+    if (!e || typeof e != "object") return !1;
+    let t = Object.getPrototypeOf(e);
+    if (t === null || t === Object.prototype) return !0;
+    let s = Object.hasOwnProperty.call(t, "constructor") && t.constructor;
+    if (s === Object) return !0;
+    if (typeof s != "function") return !1;
+    let i = Ue.get(s);
+    return (
+      i === void 0 && ((i = Function.toString.call(s)), Ue.set(s, i)),
+      i === Gs
+    );
+  }
+  function it(e, t, s = !0) {
+    W(e) === 0
+      ? (s ? Reflect.ownKeys(e) : Object.keys(e)).forEach((n) => {
+          t(n, e[n], e);
+        })
+      : e.forEach((i, n) => t(n, i, e));
+  }
+  function W(e) {
+    let t = e[N];
+    return t ? t.type_ : Array.isArray(e) ? 1 : $(e) ? 2 : at(e) ? 3 : 0;
+  }
+  function nt(e, t) {
+    return W(e) === 2 ? e.has(t) : Object.prototype.hasOwnProperty.call(e, t);
+  }
+  function Lt(e, t) {
+    return W(e) === 2 ? e.get(t) : e[t];
+  }
+  function ze(e, t, s) {
+    let i = W(e);
+    i === 2 ? e.set(t, s) : i === 3 ? e.add(s) : (e[t] = s);
+  }
+  function Vs(e, t) {
+    return e === t ? e !== 0 || 1 / e === 1 / t : e !== e && t !== t;
+  }
+  function $(e) {
+    return e instanceof Map;
+  }
+  function at(e) {
+    return e instanceof Set;
+  }
+  function G(e) {
+    return e.copy_ || e.base_;
+  }
+  function Pt(e, t) {
+    if ($(e)) return new Map(e);
+    if (at(e)) return new Set(e);
+    if (Array.isArray(e)) return Array.prototype.slice.call(e);
+    let s = Fe(e);
+    if (t === !0 || (t === "class_only" && !s)) {
+      let i = Object.getOwnPropertyDescriptors(e);
+      delete i[N];
+      let n = Reflect.ownKeys(i);
+      for (let r = 0; r < n.length; r++) {
+        let a = n[r],
+          l = i[a];
+        (l.writable === !1 && ((l.writable = !0), (l.configurable = !0)),
+          (l.get || l.set) &&
+            (i[a] = {
+              configurable: !0,
+              writable: !0,
+              enumerable: l.enumerable,
+              value: e[a],
+            }));
+      }
+      return Object.create(Y(e), i);
+    } else {
+      let i = Y(e);
+      if (i !== null && s) return { ...e };
+      let n = Object.create(i);
+      return Object.assign(n, e);
+    }
+  }
+  function zt(e, t = !1) {
+    return (
+      Ot(e) ||
+        V(e) ||
+        !P(e) ||
+        (W(e) > 1 &&
+          Object.defineProperties(e, {
+            set: yt,
+            add: yt,
+            clear: yt,
+            delete: yt,
+          }),
+        Object.freeze(e),
+        t && Object.values(e).forEach((s) => zt(s, !0))),
+      e
+    );
+  }
+  function Ws() {
+    C(2);
+  }
+  var yt = { value: Ws };
+  function Ot(e) {
+    return e === null || typeof e != "object" ? !0 : Object.isFrozen(e);
+  }
+  var kt = {};
+  function H(e) {
+    let t = kt[e];
+    return (t || C(0, e), t);
+  }
+  function Hs(e, t) {
+    kt[e] || (kt[e] = t);
+  }
+  var rt;
+  function je() {
+    return rt;
+  }
+  function Fs(e, t) {
+    return {
+      drafts_: [],
+      parent_: e,
+      immer_: t,
+      canAutoFreeze_: !0,
+      unfinalizedDrafts_: 0,
+    };
+  }
+  function Ge(e, t) {
+    t &&
+      (H("Patches"),
+      (e.patches_ = []),
+      (e.inversePatches_ = []),
+      (e.patchListener_ = t));
+  }
+  function Ut(e) {
+    (Gt(e), e.drafts_.forEach(zs), (e.drafts_ = null));
+  }
+  function Gt(e) {
+    e === rt && (rt = e.parent_);
+  }
+  function Ve(e) {
+    return (rt = Fs(rt, e));
+  }
+  function zs(e) {
+    let t = e[N];
+    t.type_ === 0 || t.type_ === 1 ? t.revoke_() : (t.revoked_ = !0);
+  }
+  function We(e, t) {
+    t.unfinalizedDrafts_ = t.drafts_.length;
+    let s = t.drafts_[0];
+    return (
+      e !== void 0 && e !== s
+        ? (s[N].modified_ && (Ut(t), C(4)),
+          P(e) && ((e = mt(t, e)), t.parent_ || Et(t, e)),
+          t.patches_ &&
+            H("Patches").generateReplacementPatches_(
+              s[N].base_,
+              e,
+              t.patches_,
+              t.inversePatches_,
+            ))
+        : (e = mt(t, s, [])),
+      Ut(t),
+      t.patches_ && t.patchListener_(t.patches_, t.inversePatches_),
+      e !== Ft ? e : void 0
+    );
+  }
+  function mt(e, t, s) {
+    if (Ot(t)) return t;
+    let i = e.immer_.shouldUseStrictIteration(),
+      n = t[N];
+    if (!n) return (it(t, (r, a) => He(e, n, t, r, a, s), i), t);
+    if (n.scope_ !== e) return t;
+    if (!n.modified_) return (Et(e, n.base_, !0), n.base_);
+    if (!n.finalized_) {
+      ((n.finalized_ = !0), n.scope_.unfinalizedDrafts_--);
+      let r = n.copy_,
+        a = r,
+        l = !1;
+      (n.type_ === 3 && ((a = new Set(r)), r.clear(), (l = !0)),
+        it(a, (d, c) => He(e, n, r, d, c, s, l), i),
+        Et(e, r, !1),
+        s &&
+          e.patches_ &&
+          H("Patches").generatePatches_(n, s, e.patches_, e.inversePatches_));
+    }
+    return n.copy_;
+  }
+  function He(e, t, s, i, n, r, a) {
+    if (n == null || (typeof n != "object" && !a)) return;
+    let l = Ot(n);
+    if (!(l && !a)) {
+      if (V(n)) {
+        let d =
+            r && t && t.type_ !== 3 && !nt(t.assigned_, i)
+              ? r.concat(i)
+              : void 0,
+          c = mt(e, n, d);
+        if ((ze(s, i, c), V(c))) e.canAutoFreeze_ = !1;
+        else return;
+      } else a && s.add(n);
+      if (P(n) && !l) {
+        if (
+          (!e.immer_.autoFreeze_ && e.unfinalizedDrafts_ < 1) ||
+          (t && t.base_ && t.base_[i] === n && l)
+        )
+          return;
+        (mt(e, n),
+          (!t || !t.scope_.parent_) &&
+            typeof i != "symbol" &&
+            ($(s)
+              ? s.has(i)
+              : Object.prototype.propertyIsEnumerable.call(s, i)) &&
+            Et(e, n));
+      }
+    }
+  }
+  function Et(e, t, s = !1) {
+    !e.parent_ && e.immer_.autoFreeze_ && e.canAutoFreeze_ && zt(t, s);
+  }
+  function js(e, t) {
+    let s = Array.isArray(e),
+      i = {
+        type_: s ? 1 : 0,
+        scope_: t ? t.scope_ : je(),
+        modified_: !1,
+        finalized_: !1,
+        assigned_: {},
+        parent_: t,
+        base_: e,
+        draft_: null,
+        copy_: null,
+        revoke_: null,
+        isManual_: !1,
+      },
+      n = i,
+      r = jt;
+    s && ((n = [i]), (r = ot));
+    let { revoke: a, proxy: l } = Proxy.revocable(n, r);
+    return ((i.draft_ = l), (i.revoke_ = a), l);
+  }
+  var jt = {
+      get(e, t) {
+        if (t === N) return e;
+        let s = G(e);
+        if (!nt(s, t)) return Ys(e, s, t);
+        let i = s[t];
+        return e.finalized_ || !P(i)
+          ? i
+          : i === bt(e.base_, t)
+            ? (Dt(e), (e.copy_[t] = Wt(i, e)))
+            : i;
+      },
+      has(e, t) {
+        return t in G(e);
+      },
+      ownKeys(e) {
+        return Reflect.ownKeys(G(e));
+      },
+      set(e, t, s) {
+        let i = Ye(G(e), t);
+        if (i != null && i.set) return (i.set.call(e.draft_, s), !0);
+        if (!e.modified_) {
+          let n = bt(G(e), t),
+            r = n == null ? void 0 : n[N];
+          if (r && r.base_ === s)
+            return ((e.copy_[t] = s), (e.assigned_[t] = !1), !0);
+          if (Vs(s, n) && (s !== void 0 || nt(e.base_, t))) return !0;
+          (Dt(e), Vt(e));
+        }
+        return (
+          (e.copy_[t] === s && (s !== void 0 || t in e.copy_)) ||
+            (Number.isNaN(s) && Number.isNaN(e.copy_[t])) ||
+            ((e.copy_[t] = s), (e.assigned_[t] = !0)),
+          !0
+        );
+      },
+      deleteProperty(e, t) {
+        return (
+          bt(e.base_, t) !== void 0 || t in e.base_
+            ? ((e.assigned_[t] = !1), Dt(e), Vt(e))
+            : delete e.assigned_[t],
+          e.copy_ && delete e.copy_[t],
+          !0
+        );
+      },
+      getOwnPropertyDescriptor(e, t) {
+        let s = G(e),
+          i = Reflect.getOwnPropertyDescriptor(s, t);
+        return (
+          i && {
+            writable: !0,
+            configurable: e.type_ !== 1 || t !== "length",
+            enumerable: i.enumerable,
+            value: s[t],
+          }
+        );
+      },
+      defineProperty() {
+        C(11);
+      },
+      getPrototypeOf(e) {
+        return Y(e.base_);
+      },
+      setPrototypeOf() {
+        C(12);
+      },
+    },
+    ot = {};
+  it(jt, (e, t) => {
+    ot[e] = function () {
+      return ((arguments[0] = arguments[0][0]), t.apply(this, arguments));
+    };
+  });
+  ot.deleteProperty = function (e, t) {
+    return ot.set.call(this, e, t, void 0);
+  };
+  ot.set = function (e, t, s) {
+    return jt.set.call(this, e[0], t, s, e[0]);
+  };
+  function bt(e, t) {
+    let s = e[N];
+    return (s ? G(s) : e)[t];
+  }
+  function Ys(e, t, s) {
+    var n;
+    let i = Ye(t, s);
+    return i
+      ? "value" in i
+        ? i.value
+        : (n = i.get) == null
+          ? void 0
+          : n.call(e.draft_)
+      : void 0;
+  }
+  function Ye(e, t) {
+    if (!(t in e)) return;
+    let s = Y(e);
+    for (; s; ) {
+      let i = Object.getOwnPropertyDescriptor(s, t);
+      if (i) return i;
+      s = Y(s);
+    }
+  }
+  function Vt(e) {
+    e.modified_ || ((e.modified_ = !0), e.parent_ && Vt(e.parent_));
+  }
+  function Dt(e) {
+    e.copy_ || (e.copy_ = Pt(e.base_, e.scope_.immer_.useStrictShallowCopy_));
+  }
+  var $s = class {
+    constructor(e) {
+      ((this.autoFreeze_ = !0),
+        (this.useStrictShallowCopy_ = !1),
+        (this.useStrictIteration_ = !0),
+        (this.produce = (t, s, i) => {
+          if (typeof t == "function" && typeof s != "function") {
+            let r = s;
+            s = t;
+            let a = this;
+            return function (d = r, ...c) {
+              return a.produce(d, (o) => s.call(this, o, ...c));
+            };
+          }
+          (typeof s != "function" && C(6),
+            i !== void 0 && typeof i != "function" && C(7));
+          let n;
+          if (P(t)) {
+            let r = Ve(this),
+              a = Wt(t, void 0),
+              l = !0;
+            try {
+              ((n = s(a)), (l = !1));
+            } finally {
+              l ? Ut(r) : Gt(r);
+            }
+            return (Ge(r, i), We(n, r));
+          } else if (!t || typeof t != "object") {
+            if (
+              ((n = s(t)),
+              n === void 0 && (n = t),
+              n === Ft && (n = void 0),
+              this.autoFreeze_ && zt(n, !0),
+              i)
+            ) {
+              let r = [],
+                a = [];
+              (H("Patches").generateReplacementPatches_(t, n, r, a), i(r, a));
+            }
+            return n;
+          } else C(1, t);
+        }),
+        (this.produceWithPatches = (t, s) => {
+          if (typeof t == "function")
+            return (a, ...l) => this.produceWithPatches(a, (d) => t(d, ...l));
+          let i, n;
+          return [
+            this.produce(t, s, (a, l) => {
+              ((i = a), (n = l));
+            }),
+            i,
+            n,
+          ];
+        }),
+        typeof (e == null ? void 0 : e.autoFreeze) == "boolean" &&
+          this.setAutoFreeze(e.autoFreeze),
+        typeof (e == null ? void 0 : e.useStrictShallowCopy) == "boolean" &&
+          this.setUseStrictShallowCopy(e.useStrictShallowCopy),
+        typeof (e == null ? void 0 : e.useStrictIteration) == "boolean" &&
+          this.setUseStrictIteration(e.useStrictIteration));
+    }
+    createDraft(e) {
+      (P(e) || C(8), V(e) && (e = Ks(e)));
+      let t = Ve(this),
+        s = Wt(e, void 0);
+      return ((s[N].isManual_ = !0), Gt(t), s);
+    }
+    finishDraft(e, t) {
+      let s = e && e[N];
+      (!s || !s.isManual_) && C(9);
+      let { scope_: i } = s;
+      return (Ge(i, t), We(void 0, i));
+    }
+    setAutoFreeze(e) {
+      this.autoFreeze_ = e;
+    }
+    setUseStrictShallowCopy(e) {
+      this.useStrictShallowCopy_ = e;
+    }
+    setUseStrictIteration(e) {
+      this.useStrictIteration_ = e;
+    }
+    shouldUseStrictIteration() {
+      return this.useStrictIteration_;
+    }
+    applyPatches(e, t) {
+      let s;
+      for (s = t.length - 1; s >= 0; s--) {
+        let n = t[s];
+        if (n.path.length === 0 && n.op === "replace") {
+          e = n.value;
+          break;
+        }
+      }
+      s > -1 && (t = t.slice(s + 1));
+      let i = H("Patches").applyPatches_;
+      return V(e) ? i(e, t) : this.produce(e, (n) => i(n, t));
+    }
+  };
+  function Wt(e, t) {
+    let s = $(e)
+      ? H("MapSet").proxyMap_(e, t)
+      : at(e)
+        ? H("MapSet").proxySet_(e, t)
+        : js(e, t);
+    return ((t ? t.scope_ : je()).drafts_.push(s), s);
+  }
+  function Ks(e) {
+    return (V(e) || C(10, e), $e(e));
+  }
+  function $e(e) {
+    if (!P(e) || Ot(e)) return e;
+    let t = e[N],
+      s,
+      i = !0;
+    if (t) {
+      if (!t.modified_) return t.base_;
+      ((t.finalized_ = !0),
+        (s = Pt(e, t.scope_.immer_.useStrictShallowCopy_)),
+        (i = t.scope_.immer_.shouldUseStrictIteration()));
+    } else s = Pt(e, !0);
+    return (
+      it(
+        s,
+        (n, r) => {
+          ze(s, n, $e(r));
+        },
+        i,
+      ),
+      t && (t.finalized_ = !1),
+      s
+    );
+  }
+  function K() {
+    let t = "replace",
+      s = "add",
+      i = "remove";
+    function n(h, y, m, O) {
+      switch (h.type_) {
+        case 0:
+        case 2:
+          return a(h, y, m, O);
+        case 1:
+          return r(h, y, m, O);
+        case 3:
+          return l(h, y, m, O);
+      }
+    }
+    function r(h, y, m, O) {
+      let { base_: A, assigned_: E } = h,
+        x = h.copy_;
+      x.length < A.length && (([A, x] = [x, A]), ([m, O] = [O, m]));
+      for (let f = 0; f < A.length; f++)
+        if (E[f] && x[f] !== A[f]) {
+          let g = y.concat([f]);
+          (m.push({ op: t, path: g, value: u(x[f]) }),
+            O.push({ op: t, path: g, value: u(A[f]) }));
+        }
+      for (let f = A.length; f < x.length; f++) {
+        let g = y.concat([f]);
+        m.push({ op: s, path: g, value: u(x[f]) });
+      }
+      for (let f = x.length - 1; A.length <= f; --f) {
+        let g = y.concat([f]);
+        O.push({ op: i, path: g });
+      }
+    }
+    function a(h, y, m, O) {
+      let { base_: A, copy_: E } = h;
+      it(h.assigned_, (x, f) => {
+        let g = Lt(A, x),
+          F = Lt(E, x),
+          D = f ? (nt(A, x) ? t : s) : i;
+        if (g === F && D === t) return;
+        let w = y.concat(x);
+        (m.push(D === i ? { op: D, path: w } : { op: D, path: w, value: F }),
+          O.push(
+            D === s
+              ? { op: i, path: w }
+              : D === i
+                ? { op: s, path: w, value: u(g) }
+                : { op: t, path: w, value: u(g) },
+          ));
+      });
+    }
+    function l(h, y, m, O) {
+      let { base_: A, copy_: E } = h,
+        x = 0;
+      (A.forEach((f) => {
+        if (!E.has(f)) {
+          let g = y.concat([x]);
+          (m.push({ op: i, path: g, value: f }),
+            O.unshift({ op: s, path: g, value: f }));
+        }
+        x++;
+      }),
+        (x = 0),
+        E.forEach((f) => {
+          if (!A.has(f)) {
+            let g = y.concat([x]);
+            (m.push({ op: s, path: g, value: f }),
+              O.unshift({ op: i, path: g, value: f }));
+          }
+          x++;
+        }));
+    }
+    function d(h, y, m, O) {
+      (m.push({ op: t, path: [], value: y === Ft ? void 0 : y }),
+        O.push({ op: t, path: [], value: h }));
+    }
+    function c(h, y) {
+      return (
+        y.forEach((m) => {
+          let { path: O, op: A } = m,
+            E = h;
+          for (let F = 0; F < O.length - 1; F++) {
+            let D = W(E),
+              w = O[F];
+            (typeof w != "string" && typeof w != "number" && (w = "" + w),
+              (D === 0 || D === 1) &&
+                (w === "__proto__" || w === "constructor") &&
+                C(19),
+              typeof E == "function" && w === "prototype" && C(19),
+              (E = Lt(E, w)),
+              typeof E != "object" && C(18, O.join("/")));
+          }
+          let x = W(E),
+            f = o(m.value),
+            g = O[O.length - 1];
+          switch (A) {
+            case t:
+              switch (x) {
+                case 2:
+                  return E.set(g, f);
+                case 3:
+                  C(16);
+                default:
+                  return (E[g] = f);
+              }
+            case s:
+              switch (x) {
+                case 1:
+                  return g === "-" ? E.push(f) : E.splice(g, 0, f);
+                case 2:
+                  return E.set(g, f);
+                case 3:
+                  return E.add(f);
+                default:
+                  return (E[g] = f);
+              }
+            case i:
+              switch (x) {
+                case 1:
+                  return E.splice(g, 1);
+                case 2:
+                  return E.delete(g);
+                case 3:
+                  return E.delete(m.value);
+                default:
+                  return delete E[g];
+              }
+            default:
+              C(17, A);
+          }
+        }),
+        h
+      );
+    }
+    function o(h) {
+      if (!P(h)) return h;
+      if (Array.isArray(h)) return h.map(o);
+      if ($(h))
+        return new Map(Array.from(h.entries()).map(([m, O]) => [m, o(O)]));
+      if (at(h)) return new Set(Array.from(h).map(o));
+      let y = Object.create(Y(h));
+      for (let m in h) y[m] = o(h[m]);
+      return (nt(h, st) && (y[st] = h[st]), y);
+    }
+    function u(h) {
+      return V(h) ? o(h) : h;
+    }
+    Hs("Patches", {
+      applyPatches_: c,
+      generatePatches_: n,
+      generateReplacementPatches_: d,
+    });
+  }
+  var Ht = new $s(),
+    qi = Ht.produce,
+    X = Ht.produceWithPatches.bind(Ht);
+  var Z = function (e, t, s, i) {
+    function n(r) {
+      return r instanceof s
+        ? r
+        : new s(function (a) {
+            a(r);
+          });
+    }
+    return new (s || (s = Promise))(function (r, a) {
+      function l(o) {
+        try {
+          c(i.next(o));
+        } catch (u) {
+          a(u);
+        }
+      }
+      function d(o) {
+        try {
+          c(i.throw(o));
+        } catch (u) {
+          a(u);
+        }
+      }
+      function c(o) {
+        o.done ? r(o.value) : n(o.value).then(l, d);
+      }
+      c((i = i.apply(e, t || [])).next());
+    });
+  };
+  K();
+  var Yt = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      getItems(t) {
+        return Z(this, void 0, void 0, function* () {
+          if (Array.isArray(t)) {
+            let { items: s } = yield this.messageBus.sendAsync(
+              "OBR_SCENE_ITEMS_GET_ITEMS",
+              { ids: t },
+            );
+            return s;
+          } else if (t) {
+            let { items: s } = yield this.messageBus.sendAsync(
+              "OBR_SCENE_ITEMS_GET_ALL_ITEMS",
+              {},
+            );
+            return s.filter(t);
+          } else {
+            let { items: s } = yield this.messageBus.sendAsync(
+              "OBR_SCENE_ITEMS_GET_ALL_ITEMS",
+              {},
+            );
+            return s;
+          }
+        });
+      }
+      isItemArray(t) {
+        return Array.isArray(t) && t.every((s) => typeof s != "string");
+      }
+      updateItems(t, s) {
+        return Z(this, void 0, void 0, function* () {
+          let i;
+          this.isItemArray(t) ? (i = t) : (i = yield this.getItems(t));
+          let [n, r] = X(i, s),
+            a = n.map((d) => ({ id: d.id, type: d.type }));
+          for (let d of r) {
+            let [c, o] = d.path;
+            typeof c == "number" && typeof o == "string" && (a[c][o] = n[c][o]);
+          }
+          let l = a.filter((d) => Object.keys(d).length > 2);
+          l.length !== 0 &&
+            (yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_UPDATE_ITEMS", {
+              updates: l,
+            }));
+        });
+      }
+      addItems(t) {
+        return Z(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_ADD_ITEMS", {
+            items: t,
+          });
+        });
+      }
+      deleteItems(t) {
+        return Z(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_ITEMS_DELETE_ITEMS", {
+            ids: t,
+          });
+        });
+      }
+      getItemAttachments(t) {
+        return Z(this, void 0, void 0, function* () {
+          let { items: s } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_ITEMS_GET_ITEM_ATTACHMENTS",
+            { ids: t },
+          );
+          return s;
+        });
+      }
+      getItemBounds(t) {
+        return Z(this, void 0, void 0, function* () {
+          let { bounds: s } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_ITEMS_GET_ITEM_BOUNDS",
+            { ids: t },
+          );
+          return s;
+        });
+      }
+      onChange(t) {
+        let s = (i) => {
+          t(i.items);
+        };
+        return (
+          this.messageBus.send("OBR_SCENE_ITEMS_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_SCENE_ITEMS_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_SCENE_ITEMS_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_SCENE_ITEMS_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    Ke = Yt;
+  var q = function (e, t, s, i) {
+    function n(r) {
+      return r instanceof s
+        ? r
+        : new s(function (a) {
+            a(r);
+          });
+    }
+    return new (s || (s = Promise))(function (r, a) {
+      function l(o) {
+        try {
+          c(i.next(o));
+        } catch (u) {
+          a(u);
+        }
+      }
+      function d(o) {
+        try {
+          c(i.throw(o));
+        } catch (u) {
+          a(u);
+        }
+      }
+      function c(o) {
+        o.done ? r(o.value) : n(o.value).then(l, d);
+      }
+      c((i = i.apply(e, t || [])).next());
+    });
+  };
+  K();
+  var $t = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      getItems(t) {
+        return q(this, void 0, void 0, function* () {
+          if (Array.isArray(t)) {
+            let { items: s } = yield this.messageBus.sendAsync(
+              "OBR_SCENE_LOCAL_GET_ITEMS",
+              { ids: t },
+            );
+            return s;
+          } else if (t) {
+            let { items: s } = yield this.messageBus.sendAsync(
+              "OBR_SCENE_LOCAL_GET_ALL_ITEMS",
+              {},
+            );
+            return s.filter(t);
+          } else {
+            let { items: s } = yield this.messageBus.sendAsync(
+              "OBR_SCENE_LOCAL_GET_ALL_ITEMS",
+              {},
+            );
+            return s;
+          }
+        });
+      }
+      isItemArray(t) {
+        return Array.isArray(t) && t.every((s) => typeof s != "string");
+      }
+      updateItems(t, s, i) {
+        return q(this, void 0, void 0, function* () {
+          let n;
+          this.isItemArray(t) ? (n = t) : (n = yield this.getItems(t));
+          let [r, a] = X(n, s),
+            l = r.map((c) => ({ id: c.id, type: c.type }));
+          for (let c of a) {
+            let [o, u] = c.path;
+            typeof o == "number" && typeof u == "string" && (l[o][u] = r[o][u]);
+          }
+          let d = l.filter((c) => Object.keys(c).length > 2);
+          d.length !== 0 &&
+            (yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_UPDATE_ITEMS", {
+              updates: d,
+              fastUpdate: i,
+            }));
+        });
+      }
+      addItems(t) {
+        return q(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_ADD_ITEMS", {
+            items: t,
+          });
+        });
+      }
+      deleteItems(t) {
+        return q(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_LOCAL_DELETE_ITEMS", {
+            ids: t,
+          });
+        });
+      }
+      getItemAttachments(t) {
+        return q(this, void 0, void 0, function* () {
+          let { items: s } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_LOCAL_GET_ITEM_ATTACHMENTS",
+            { ids: t },
+          );
+          return s;
+        });
+      }
+      getItemBounds(t) {
+        return q(this, void 0, void 0, function* () {
+          let { bounds: s } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_LOCAL_GET_ITEM_BOUNDS",
+            { ids: t },
+          );
+          return s;
+        });
+      }
+      onChange(t) {
+        let s = (i) => {
+          t(i.items);
+        };
+        return (
+          this.messageBus.send("OBR_SCENE_LOCAL_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_SCENE_LOCAL_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_SCENE_LOCAL_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_SCENE_LOCAL_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    Xe = $t;
+  var Kt = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    Xt = class {
+      constructor(t) {
+        ((this.messageBus = t),
+          (this.grid = new Pe(t)),
+          (this.fog = new De(t)),
+          (this.history = new ke(t)),
+          (this.items = new Ke(t)),
+          (this.local = new Xe(t)));
+      }
+      isReady() {
+        return Kt(this, void 0, void 0, function* () {
+          let { ready: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_IS_READY",
+            {},
+          );
+          return t;
+        });
+      }
+      onReadyChange(t) {
+        let s = (i) => {
+          t(i.ready);
+        };
+        return (
+          this.messageBus.send("OBR_SCENE_READY_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_SCENE_EVENT_READY_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_SCENE_READY_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_SCENE_EVENT_READY_CHANGE", s));
+          }
+        );
+      }
+      getMetadata() {
+        return Kt(this, void 0, void 0, function* () {
+          let { metadata: t } = yield this.messageBus.sendAsync(
+            "OBR_SCENE_GET_METADATA",
+            {},
+          );
+          return t;
+        });
+      }
+      setMetadata(t) {
+        return Kt(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_SCENE_SET_METADATA", {
+            update: t,
+          });
+        });
+      }
+      onMetadataChange(t) {
+        let s = (i) => {
+          t(i.metadata);
+        };
+        return (
+          this.messageBus.send("OBR_SCENE_METADATA_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_SCENE_METADATA_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_SCENE_METADATA_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_SCENE_METADATA_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    Ze = Xt;
+  function qe(e) {
+    return e.startsWith("http") ? e : `${window.location.origin}${e}`;
+  }
+  function k(e) {
+    return e.map((t) =>
+      Object.assign(Object.assign({}, t), { icon: qe(t.icon) }),
+    );
+  }
+  function Q(e) {
+    return Object.assign(Object.assign({}, e), { url: qe(e.url) });
+  }
+  var Qe = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    Zt = class {
+      constructor(t) {
+        ((this.contextMenus = {}),
+          (this.handleClick = (s) => {
+            var i;
+            let n = this.contextMenus[s.id];
+            n &&
+              ((i = n.onClick) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.elementId));
+          }),
+          (this.messageBus = t),
+          t.on("OBR_CONTEXT_MENU_EVENT_CLICK", this.handleClick));
+      }
+      create(t) {
+        return Qe(this, void 0, void 0, function* () {
+          (this.messageBus.sendAsync("OBR_CONTEXT_MENU_CREATE", {
+            id: t.id,
+            shortcut: t.shortcut,
+            icons: k(t.icons),
+            embed: t.embed && Q(t.embed),
+          }),
+            (this.contextMenus[t.id] = t));
+        });
+      }
+      remove(t) {
+        return Qe(this, void 0, void 0, function* () {
+          (yield this.messageBus.sendAsync("OBR_CONTEXT_MENU_REMOVE", {
+            id: t,
+          }),
+            delete this.contextMenus[t]);
+        });
+      }
+    },
+    Je = Zt;
+  var M = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    qt = class {
+      constructor(t) {
+        ((this.tools = {}),
+          (this.toolActions = {}),
+          (this.toolModes = {}),
+          (this.handleToolClick = (s) => {
+            let i = this.tools[s.id];
+            if (i)
+              if (i.onClick) {
+                let n = i.onClick(s.context, s.elementId);
+                Promise.resolve(n).then((r) => {
+                  r && this.messageBus.send("OBR_TOOL_ACTIVATE", { id: s.id });
+                });
+              } else this.messageBus.send("OBR_TOOL_ACTIVATE", { id: s.id });
+          }),
+          (this.handleToolActionClick = (s) => {
+            var i;
+            let n = this.toolActions[s.id];
+            n &&
+              ((i = n.onClick) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.elementId));
+          }),
+          (this.handleToolModeClick = (s) => {
+            let i = this.toolModes[s.id];
+            if (i)
+              if (i.onClick) {
+                let n = i.onClick(s.context, s.elementId);
+                Promise.resolve(n).then((r) => {
+                  r &&
+                    this.messageBus.send("OBR_TOOL_MODE_ACTIVATE", {
+                      toolId: s.context.activeTool,
+                      modeId: s.id,
+                    });
+                });
+              } else
+                this.messageBus.send("OBR_TOOL_MODE_ACTIVATE", {
+                  toolId: s.context.activeTool,
+                  modeId: s.id,
+                });
+          }),
+          (this.handleToolModeToolClick = (s) => {
+            let i = this.toolModes[s.id];
+            if (i)
+              if (i.onToolClick) {
+                let n = i.onToolClick(s.context, s.event);
+                Promise.resolve(n).then((r) => {
+                  r &&
+                    s.event.target &&
+                    !s.event.target.locked &&
+                    this.messageBus.sendAsync("OBR_PLAYER_SELECT", {
+                      items: [s.event.target.id],
+                    });
+                });
+              } else
+                s.event.target &&
+                  !s.event.target.locked &&
+                  this.messageBus.sendAsync("OBR_PLAYER_SELECT", {
+                    items: [s.event.target.id],
+                  });
+          }),
+          (this.handleToolModeToolDoubleClick = (s) => {
+            let i = this.toolModes[s.id];
+            if (i)
+              if (i.onToolDoubleClick) {
+                let n = i.onToolDoubleClick(s.context, s.event);
+                Promise.resolve(n).then((r) => {
+                  r &&
+                    s.event.target &&
+                    this.messageBus.sendAsync("OBR_PLAYER_SELECT", {
+                      items: [s.event.target.id],
+                    });
+                });
+              } else
+                s.event.target &&
+                  this.messageBus.sendAsync("OBR_PLAYER_SELECT", {
+                    items: [s.event.target.id],
+                  });
+          }),
+          (this.handleToolModeToolDown = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onToolDown) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.event));
+          }),
+          (this.handleToolModeToolMove = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onToolMove) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.event));
+          }),
+          (this.handleToolModeToolUp = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onToolUp) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.event));
+          }),
+          (this.handleToolModeToolDragStart = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onToolDragStart) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.event));
+          }),
+          (this.handleToolModeToolDragMove = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onToolDragMove) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.event));
+          }),
+          (this.handleToolModeToolDragEnd = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onToolDragEnd) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.event));
+          }),
+          (this.handleToolModeToolDragCancel = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onToolDragCancel) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.event));
+          }),
+          (this.handleToolModeKeyDown = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onKeyDown) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.event));
+          }),
+          (this.handleToolModeKeyUp = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onKeyUp) === null ||
+                i === void 0 ||
+                i.call(n, s.context, s.event));
+          }),
+          (this.handleToolModeActivate = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onActivate) === null ||
+                i === void 0 ||
+                i.call(n, s.context));
+          }),
+          (this.handleToolModeDeactivate = (s) => {
+            var i;
+            let n = this.toolModes[s.id];
+            n &&
+              ((i = n.onDeactivate) === null ||
+                i === void 0 ||
+                i.call(n, s.context));
+          }),
+          (this.messageBus = t),
+          t.on("OBR_TOOL_EVENT_CLICK", this.handleToolClick),
+          t.on("OBR_TOOL_ACTION_EVENT_CLICK", this.handleToolActionClick),
+          t.on("OBR_TOOL_MODE_EVENT_CLICK", this.handleToolModeClick),
+          t.on("OBR_TOOL_MODE_EVENT_TOOL_CLICK", this.handleToolModeToolClick),
+          t.on(
+            "OBR_TOOL_MODE_EVENT_TOOL_DOUBLE_CLICK",
+            this.handleToolModeToolDoubleClick,
+          ),
+          t.on("OBR_TOOL_MODE_EVENT_TOOL_DOWN", this.handleToolModeToolDown),
+          t.on("OBR_TOOL_MODE_EVENT_TOOL_MOVE", this.handleToolModeToolMove),
+          t.on("OBR_TOOL_MODE_EVENT_TOOL_UP", this.handleToolModeToolUp),
+          t.on(
+            "OBR_TOOL_MODE_EVENT_TOOL_DRAG_START",
+            this.handleToolModeToolDragStart,
+          ),
+          t.on(
+            "OBR_TOOL_MODE_EVENT_TOOL_DRAG_MOVE",
+            this.handleToolModeToolDragMove,
+          ),
+          t.on(
+            "OBR_TOOL_MODE_EVENT_TOOL_DRAG_END",
+            this.handleToolModeToolDragEnd,
+          ),
+          t.on(
+            "OBR_TOOL_MODE_EVENT_TOOL_DRAG_CANCEL",
+            this.handleToolModeToolDragCancel,
+          ),
+          t.on("OBR_TOOL_MODE_EVENT_KEY_DOWN", this.handleToolModeKeyDown),
+          t.on("OBR_TOOL_MODE_EVENT_KEY_UP", this.handleToolModeKeyUp),
+          t.on("OBR_TOOL_MODE_EVENT_ACTIVATE", this.handleToolModeActivate),
+          t.on(
+            "OBR_TOOL_MODE_EVENT_DEACTIVATE",
+            this.handleToolModeDeactivate,
+          ));
+      }
+      create(t) {
+        return M(this, void 0, void 0, function* () {
+          (yield this.messageBus.sendAsync("OBR_TOOL_CREATE", {
+            id: t.id,
+            shortcut: t.shortcut,
+            defaultMode: t.defaultMode,
+            defaultMetadata: t.defaultMetadata,
+            icons: k(t.icons),
+            disabled: t.disabled,
+          }),
+            (this.tools[t.id] = t));
+        });
+      }
+      remove(t) {
+        return M(this, void 0, void 0, function* () {
+          (yield this.messageBus.sendAsync("OBR_TOOL_REMOVE", { id: t }),
+            delete this.tools[t]);
+        });
+      }
+      activateTool(t) {
+        return M(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_TOOL_ACTIVATE", { id: t });
+        });
+      }
+      getActiveTool() {
+        return M(this, void 0, void 0, function* () {
+          let { id: t } = yield this.messageBus.sendAsync(
+            "OBR_TOOL_GET_ACTIVE",
+            {},
+          );
+          return t;
+        });
+      }
+      onToolChange(t) {
+        let s = (i) => {
+          t(i.id);
+        };
+        return (
+          this.messageBus.send("OBR_TOOL_ACTIVE_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_TOOL_ACTIVE_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_TOOL_ACTIVE_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_TOOL_ACTIVE_EVENT_CHANGE", s));
+          }
+        );
+      }
+      getMetadata(t) {
+        return M(this, void 0, void 0, function* () {
+          let { metadata: s } = yield this.messageBus.sendAsync(
+            "OBR_TOOL_GET_METADATA",
+            { id: t },
+          );
+          return s;
+        });
+      }
+      setMetadata(t, s) {
+        return M(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_TOOL_SET_METADATA", {
+            toolId: t,
+            update: s,
+          });
+        });
+      }
+      createAction(t) {
+        return M(this, void 0, void 0, function* () {
+          (yield this.messageBus.sendAsync("OBR_TOOL_ACTION_CREATE", {
+            id: t.id,
+            shortcut: t.shortcut,
+            icons: k(t.icons),
+            disabled: t.disabled,
+          }),
+            (this.toolActions[t.id] = t));
+        });
+      }
+      removeAction(t) {
+        return M(this, void 0, void 0, function* () {
+          (yield this.messageBus.sendAsync("OBR_TOOL_ACTION_REMOVE", { id: t }),
+            delete this.tools[t]);
+        });
+      }
+      createMode(t) {
+        return M(this, void 0, void 0, function* () {
+          (yield this.messageBus.sendAsync("OBR_TOOL_MODE_CREATE", {
+            id: t.id,
+            shortcut: t.shortcut,
+            icons: k(t.icons),
+            preventDrag: t.preventDrag,
+            disabled: t.disabled,
+            cursors: t.cursors,
+          }),
+            (this.toolModes[t.id] = t));
+        });
+      }
+      removeMode(t) {
+        return M(this, void 0, void 0, function* () {
+          (yield this.messageBus.sendAsync("OBR_TOOL_MODE_REMOVE", { id: t }),
+            delete this.tools[t]);
+        });
+      }
+      activateMode(t, s) {
+        return M(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_TOOL_MODE_ACTIVATE", {
+            toolId: t,
+            modeId: s,
+          });
+        });
+      }
+      getActiveToolMode() {
+        return M(this, void 0, void 0, function* () {
+          let { id: t } = yield this.messageBus.sendAsync(
+            "OBR_TOOL_MODE_GET_ACTIVE",
+            {},
+          );
+          return t;
+        });
+      }
+      onToolModeChange(t) {
+        let s = (i) => {
+          t(i.id);
+        };
+        return (
+          this.messageBus.send("OBR_TOOL_MODE_ACTIVE_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_TOOL_MODE_ACTIVE_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_TOOL_MODE_ACTIVE_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_TOOL_MODE_ACTIVE_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    ts = qt;
+  var J = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    Qt = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      open(t) {
+        return J(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync(
+            "OBR_POPOVER_OPEN",
+            Object.assign({}, Q(t)),
+          );
+        });
+      }
+      close(t) {
+        return J(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_POPOVER_CLOSE", { id: t });
+        });
+      }
+      getWidth(t) {
+        return J(this, void 0, void 0, function* () {
+          let { width: s } = yield this.messageBus.sendAsync(
+            "OBR_POPOVER_GET_WIDTH",
+            { id: t },
+          );
+          return s;
+        });
+      }
+      setWidth(t, s) {
+        return J(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_POPOVER_SET_WIDTH", {
+            id: t,
+            width: s,
+          });
+        });
+      }
+      getHeight(t) {
+        return J(this, void 0, void 0, function* () {
+          let { height: s } = yield this.messageBus.sendAsync(
+            "OBR_POPOVER_GET_HEIGHT",
+            { id: t },
+          );
+          return s;
+        });
+      }
+      setHeight(t, s) {
+        return J(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_POPOVER_SET_HEIGHT", {
+            id: t,
+            height: s,
+          });
+        });
+      }
+    },
+    es = Qt;
+  var ss = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    Jt = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      open(t) {
+        return ss(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync(
+            "OBR_MODAL_OPEN",
+            Object.assign({}, Q(t)),
+          );
+        });
+      }
+      close(t) {
+        return ss(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_MODAL_CLOSE", { id: t });
+        });
+      }
+    },
+    is = Jt;
+  var I = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    te = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      getWidth() {
+        return I(this, void 0, void 0, function* () {
+          let { width: t } = yield this.messageBus.sendAsync(
+            "OBR_ACTION_GET_WIDTH",
+            {},
+          );
+          return t;
+        });
+      }
+      setWidth(t) {
+        return I(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_ACTION_SET_WIDTH", { width: t });
+        });
+      }
+      getHeight() {
+        return I(this, void 0, void 0, function* () {
+          let { height: t } = yield this.messageBus.sendAsync(
+            "OBR_ACTION_GET_HEIGHT",
+            {},
+          );
+          return t;
+        });
+      }
+      setHeight(t) {
+        return I(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_ACTION_SET_HEIGHT", {
+            height: t,
+          });
+        });
+      }
+      getBadgeText() {
+        return I(this, void 0, void 0, function* () {
+          let { badgeText: t } = yield this.messageBus.sendAsync(
+            "OBR_ACTION_GET_BADGE_TEXT",
+            {},
+          );
+          return t;
+        });
+      }
+      setBadgeText(t) {
+        return I(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_ACTION_SET_BADGE_TEXT", {
+            badgeText: t,
+          });
+        });
+      }
+      getBadgeBackgroundColor() {
+        return I(this, void 0, void 0, function* () {
+          let { badgeBackgroundColor: t } = yield this.messageBus.sendAsync(
+            "OBR_ACTION_GET_BADGE_BACKGROUND_COLOR",
+            {},
+          );
+          return t;
+        });
+      }
+      setBadgeBackgroundColor(t) {
+        return I(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync(
+            "OBR_ACTION_SET_BADGE_BACKGROUND_COLOR",
+            { badgeBackgroundColor: t },
+          );
+        });
+      }
+      getIcon() {
+        return I(this, void 0, void 0, function* () {
+          let { icon: t } = yield this.messageBus.sendAsync(
+            "OBR_ACTION_GET_ICON",
+            {},
+          );
+          return t;
+        });
+      }
+      setIcon(t) {
+        return I(this, void 0, void 0, function* () {
+          let s = k([{ icon: t }]);
+          yield this.messageBus.sendAsync("OBR_ACTION_SET_ICON", {
+            icon: s[0].icon,
+          });
+        });
+      }
+      getTitle() {
+        return I(this, void 0, void 0, function* () {
+          let { title: t } = yield this.messageBus.sendAsync(
+            "OBR_ACTION_GET_TITLE",
+            {},
+          );
+          return t;
+        });
+      }
+      setTitle(t) {
+        return I(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_ACTION_SET_TITLE", { title: t });
+        });
+      }
+      isOpen() {
+        return I(this, void 0, void 0, function* () {
+          let { isOpen: t } = yield this.messageBus.sendAsync(
+            "OBR_ACTION_GET_IS_OPEN",
+            {},
+          );
+          return t;
+        });
+      }
+      open() {
+        return I(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_ACTION_OPEN", {});
+        });
+      }
+      close() {
+        return I(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_ACTION_CLOSE", {});
+        });
+      }
+      onOpenChange(t) {
+        let s = (i) => {
+          t(i.isOpen);
+        };
+        return (
+          this.messageBus.send("OBR_ACTION_IS_OPEN_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_ACTION_IS_OPEN_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_IS_OPEN_ACTION_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_ACTION_IS_OPEN_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    ns = te;
+  var Xs = function (e, t, s, i) {
+    function n(r) {
+      return r instanceof s
+        ? r
+        : new s(function (a) {
+            a(r);
+          });
+    }
+    return new (s || (s = Promise))(function (r, a) {
+      function l(o) {
+        try {
+          c(i.next(o));
+        } catch (u) {
+          a(u);
+        }
+      }
+      function d(o) {
+        try {
+          c(i.throw(o));
+        } catch (u) {
+          a(u);
+        }
+      }
+      function c(o) {
+        o.done ? r(o.value) : n(o.value).then(l, d);
+      }
+      c((i = i.apply(e, t || [])).next());
+    });
+  };
+  K();
+  var ee = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      startItemInteraction(t) {
+        return Xs(this, void 0, void 0, function* () {
+          let { id: s } = yield this.messageBus.sendAsync(
+              "OBR_INTERACTION_START_ITEM_INTERACTION",
+              { baseState: t },
+            ),
+            i = t;
+          return [
+            (a) => {
+              let [l, d] = X(i, a);
+              return (
+                (i = l),
+                this.messageBus.send(
+                  "OBR_INTERACTION_UPDATE_ITEM_INTERACTION",
+                  { id: s, patches: d },
+                ),
+                l
+              );
+            },
+            () => {
+              this.messageBus.send("OBR_INTERACTION_STOP_ITEM_INTERACTION", {
+                id: s,
+              });
+            },
+          ];
+        });
+      }
+    },
+    rs = ee;
+  var Zs = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    se = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      getPlayers() {
+        return Zs(this, void 0, void 0, function* () {
+          let { players: t } = yield this.messageBus.sendAsync(
+            "OBR_PARTY_GET_PLAYERS",
+            {},
+          );
+          return t;
+        });
+      }
+      onChange(t) {
+        let s = (i) => {
+          t(i.players);
+        };
+        return (
+          this.messageBus.send("OBR_PARTY_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_PARTY_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_PARTY_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_PARTY_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    os = se;
+  var ie = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    ne = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      get id() {
+        return this.messageBus.roomId;
+      }
+      getPermissions() {
+        return ie(this, void 0, void 0, function* () {
+          let { permissions: t } = yield this.messageBus.sendAsync(
+            "OBR_ROOM_GET_PERMISSIONS",
+            {},
+          );
+          return t;
+        });
+      }
+      getMetadata() {
+        return ie(this, void 0, void 0, function* () {
+          let { metadata: t } = yield this.messageBus.sendAsync(
+            "OBR_ROOM_GET_METADATA",
+            {},
+          );
+          return t;
+        });
+      }
+      setMetadata(t) {
+        return ie(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_ROOM_SET_METADATA", {
+            update: t,
+          });
+        });
+      }
+      onMetadataChange(t) {
+        let s = (i) => {
+          t(i.metadata);
+        };
+        return (
+          this.messageBus.send("OBR_ROOM_METADATA_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_ROOM_METADATA_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_METADATA_ROOM_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_ROOM_METADATA_EVENT_CHANGE", s));
+          }
+        );
+      }
+      onPermissionsChange(t) {
+        let s = (i) => {
+          t(i.permissions);
+        };
+        return (
+          this.messageBus.send("OBR_ROOM_PERMISSIONS_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_ROOM_PERMISSIONS_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_PERMISSIONS_ROOM_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_ROOM_PERMISSIONS_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    as = ne;
+  var qs = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    re = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      getTheme() {
+        return qs(this, void 0, void 0, function* () {
+          let { theme: t } = yield this.messageBus.sendAsync(
+            "OBR_THEME_GET_THEME",
+            {},
+          );
+          return t;
+        });
+      }
+      onChange(t) {
+        let s = (i) => {
+          t(i.theme);
+        };
+        return (
+          this.messageBus.send("OBR_THEME_SUBSCRIBE", {}),
+          this.messageBus.on("OBR_THEME_EVENT_CHANGE", s),
+          () => {
+            (this.messageBus.send("OBR_THEME_UNSUBSCRIBE", {}),
+              this.messageBus.off("OBR_THEME_EVENT_CHANGE", s));
+          }
+        );
+      }
+    },
+    us = re;
+  var gt = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    oe = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      uploadImages(t, s) {
+        return gt(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_ASSETS_UPLOAD_IMAGES", {
+            images: t,
+            typeHint: s,
+          });
+        });
+      }
+      uploadScenes(t, s) {
+        return gt(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_ASSETS_UPLOAD_SCENES", {
+            scenes: t,
+            disableShowScenes: s,
+          });
+        });
+      }
+      downloadImages(t, s, i) {
+        return gt(this, void 0, void 0, function* () {
+          let { images: n } = yield this.messageBus.sendAsync(
+            "OBR_ASSETS_DOWNLOAD_IMAGES",
+            { multiple: t, defaultSearch: s, typeHint: i },
+            -1,
+          );
+          return n;
+        });
+      }
+      downloadScenes(t, s) {
+        return gt(this, void 0, void 0, function* () {
+          let { scenes: i } = yield this.messageBus.sendAsync(
+            "OBR_ASSETS_DOWNLOAD_SCENES",
+            { multiple: t, defaultSearch: s },
+            -1,
+          );
+          return i;
+        });
+      }
+    },
+    cs = oe;
+  var Qs = function (e, t, s, i) {
+      function n(r) {
+        return r instanceof s
+          ? r
+          : new s(function (a) {
+              a(r);
+            });
+      }
+      return new (s || (s = Promise))(function (r, a) {
+        function l(o) {
+          try {
+            c(i.next(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function d(o) {
+          try {
+            c(i.throw(o));
+          } catch (u) {
+            a(u);
+          }
+        }
+        function c(o) {
+          o.done ? r(o.value) : n(o.value).then(l, d);
+        }
+        c((i = i.apply(e, t || [])).next());
+      });
+    },
+    ae = class {
+      constructor(t) {
+        this.messageBus = t;
+      }
+      sendMessage(t, s, i) {
+        return Qs(this, void 0, void 0, function* () {
+          yield this.messageBus.sendAsync("OBR_BROADCAST_SEND_MESSAGE", {
+            channel: t,
+            data: s,
+            options: i,
+          });
+        });
+      }
+      onMessage(t, s) {
+        return (
+          this.messageBus.send("OBR_BROADCAST_SUBSCRIBE", { channel: t }),
+          this.messageBus.on(`OBR_BROADCAST_MESSAGE_${t}`, s),
+          () => {
+            (this.messageBus.send("OBR_BROADCAST_UNSUBSCRIBE", { channel: t }),
+              this.messageBus.off(`OBR_BROADCAST_MESSAGE_${t}`, s));
+          }
+        );
+      }
+    },
+    ls = ae;
+  var ds =
+      typeof TextDecoder == "function"
+        ? new TextDecoder("utf-8", { ignoreBOM: !0 })
+        : void 0,
+    Zn = typeof TextEncoder == "function" ? new TextEncoder() : void 0,
+    Js = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    ut = Array.prototype.slice.call(Js),
+    xt = ((e) => {
+      let t = {};
+      return (e.forEach((s, i) => (t[s] = i)), t);
+    })(ut),
+    ti =
+      /^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3}=?)?$/,
+    U = String.fromCharCode.bind(String),
+    ei =
+      typeof Uint8Array.from == "function"
+        ? Uint8Array.from.bind(Uint8Array)
+        : (e) => new Uint8Array(Array.prototype.slice.call(e, 0));
+  var hs = (e) => e.replace(/[^A-Za-z0-9\+\/]/g, ""),
+    si = (e) => {
+      let t,
+        s,
+        i,
+        n,
+        r = "",
+        a = e.length % 3;
+      for (let l = 0; l < e.length; ) {
+        if (
+          (s = e.charCodeAt(l++)) > 255 ||
+          (i = e.charCodeAt(l++)) > 255 ||
+          (n = e.charCodeAt(l++)) > 255
+        )
+          throw new TypeError("invalid character found");
+        ((t = (s << 16) | (i << 8) | n),
+          (r +=
+            ut[(t >> 18) & 63] +
+            ut[(t >> 12) & 63] +
+            ut[(t >> 6) & 63] +
+            ut[t & 63]));
+      }
+      return a ? r.slice(0, a - 3) + "===".substring(a) : r;
+    },
+    ii = typeof btoa == "function" ? (e) => btoa(e) : si,
+    qn =
+      typeof Uint8Array.prototype.toBase64 == "function"
+        ? Function.prototype.call.bind(Uint8Array.prototype.toBase64)
+        : (e) => {
+            let s = [];
+            for (let i = 0, n = e.length; i < n; i += 4096)
+              s.push(U.apply(null, e.subarray(i, i + 4096)));
+            return ii(s.join(""));
+          };
+  var ni =
+      /[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF7][\x80-\xBF]{3}/g,
+    ri = (e) => {
+      switch (e.length) {
+        case 4:
+          var t =
+              ((7 & e.charCodeAt(0)) << 18) |
+              ((63 & e.charCodeAt(1)) << 12) |
+              ((63 & e.charCodeAt(2)) << 6) |
+              (63 & e.charCodeAt(3)),
+            s = t - 65536;
+          return U((s >>> 10) + 55296) + U((s & 1023) + 56320);
+        case 3:
+          return U(
+            ((15 & e.charCodeAt(0)) << 12) |
+              ((63 & e.charCodeAt(1)) << 6) |
+              (63 & e.charCodeAt(2)),
+          );
+        default:
+          return U(((31 & e.charCodeAt(0)) << 6) | (63 & e.charCodeAt(1)));
+      }
+    },
+    oi = (e) => e.replace(ni, ri),
+    ai = (e) => {
+      if (((e = e.replace(/\s+/g, "")), !ti.test(e)))
+        throw new TypeError("malformed base64.");
+      e += "==".slice(2 - (e.length & 3));
+      let t,
+        s,
+        i,
+        n = [];
+      for (let r = 0; r < e.length; )
+        ((t =
+          (xt[e.charAt(r++)] << 18) |
+          (xt[e.charAt(r++)] << 12) |
+          ((s = xt[e.charAt(r++)]) << 6) |
+          (i = xt[e.charAt(r++)])),
+          s === 64
+            ? n.push(U((t >> 16) & 255))
+            : i === 64
+              ? n.push(U((t >> 16) & 255, (t >> 8) & 255))
+              : n.push(U((t >> 16) & 255, (t >> 8) & 255, t & 255)));
+      return n.join("");
+    },
+    fs = typeof atob == "function" ? (e) => atob(hs(e)) : ai,
+    ui =
+      typeof Uint8Array.fromBase64 == "function"
+        ? (e) => Uint8Array.fromBase64(e)
+        : (e) =>
+            ei(
+              fs(e)
+                .split("")
+                .map((t) => t.charCodeAt(0)),
+            );
+  var ci = ds ? (e) => ds.decode(ui(e)) : (e) => oi(fs(e)),
+    li = (e) => hs(e.replace(/[-_]/g, (t) => (t == "-" ? "+" : "/"))),
+    _s = (e) => ci(li(e));
+  function ps() {
+    let t = new URLSearchParams(window.location.search).get("obrref"),
+      s = "",
+      i = "";
+    if (t) {
+      let r = _s(t).split(" ");
+      r.length === 2 && ((s = r[0]), (i = r[1]));
+    }
+    return { origin: s, roomId: i };
+  }
+  var ys;
+  (function (e) {
+    ((e[(e.MOVE = 0)] = "MOVE"),
+      (e[(e.LINE = 1)] = "LINE"),
+      (e[(e.QUAD = 2)] = "QUAD"),
+      (e[(e.CONIC = 3)] = "CONIC"),
+      (e[(e.CUBIC = 4)] = "CUBIC"),
+      (e[(e.CLOSE = 5)] = "CLOSE"));
+  })(ys || (ys = {}));
+  var ue = ps(),
+    v = new Me(ue.origin, ue.roomId),
+    hi = new me(v),
+    fi = new ye(v),
+    _i = new os(v),
+    pi = new be(v),
+    yi = new Ze(v),
+    mi = new Je(v),
+    Ei = new ts(v),
+    Oi = new es(v),
+    gi = new is(v),
+    xi = new ns(v),
+    Ti = new rs(v),
+    Ai = new as(v),
+    vi = new us(v),
+    Bi = new cs(v),
+    Ri = new ls(v),
+    Ci = {
+      onReady: (e) => {
+        v.ready ? e() : v.once("OBR_READY", () => e());
+      },
+      get isReady() {
+        return v.ready;
+      },
+      viewport: hi,
+      player: fi,
+      party: _i,
+      notification: pi,
+      scene: yi,
+      contextMenu: mi,
+      tool: Ei,
+      popover: Oi,
+      modal: gi,
+      action: xi,
+      interaction: Ti,
+      room: Ai,
+      theme: vi,
+      assets: Bi,
+      broadcast: Ri,
+      isAvailable: !!ue.origin,
+    };
+  var T = Ci;
+  var de = "blocca-tavolo:v2",
+    ms = "it.blocca-tavolo/cmd",
+    Si = {
+      isTable: !1,
+      mode: "scale",
+      diagonal: 27,
+      resW: 0,
+      resH: 0,
+      cellInches: 1,
+      correction: 1,
+      lockedPos: null,
+    },
+    le = "it.blocca-tavolo/state",
+    tt = null;
+  function Ii() {
+    try {
+      let e = "__blocca_tavolo_test";
+      return (localStorage.setItem(e, "1"), localStorage.removeItem(e), !0);
+    } catch {
+      return !1;
+    }
+  }
+  function ct() {
+    return (tt || (tt = Ii() ? "local" : "room"), tt);
+  }
+  function ce(e) {
+    return (
+      (e = e || {}),
+      { cfg: { ...Si, ...(e.cfg || {}) }, paused: !!e.paused }
+    );
+  }
+  async function lt() {
+    if ((ct(), tt === "local"))
+      try {
+        return ce(JSON.parse(localStorage.getItem(de) || "{}"));
+      } catch {
+        return ce();
+      }
+    let [e, t] = await Promise.all([T.player.getName(), T.room.getMetadata()]),
+      s = t[le] || {};
+    return ce(s[e]);
+  }
+  async function Es(e) {
+    ct();
+    let t = await lt(),
+      s = {
+        cfg: { ...t.cfg, ...(e.cfg || {}) },
+        paused: e.paused !== void 0 ? !!e.paused : t.paused,
+      };
+    if (tt === "local") localStorage.setItem(de, JSON.stringify(s));
+    else {
+      let [i, n] = await Promise.all([
+          T.player.getName(),
+          T.room.getMetadata(),
+        ]),
+        r = { ...(n[le] || {}) };
+      ((r[i] = s), await T.room.setMetadata({ [le]: r }));
+    }
+    return s;
+  }
+  function Os(e) {
+    if ((ct(), tt === "local")) {
+      let t = (s) => {
+        s.key === de && e();
+      };
+      return (
+        window.addEventListener("storage", t),
+        () => window.removeEventListener("storage", t)
+      );
+    }
+    return T.room.onMetadataChange(() => e());
+  }
+  function he() {
+    let e = window.devicePixelRatio || 1;
+    return {
+      w: Math.round(screen.width * e),
+      h: Math.round(screen.height * e),
+    };
+  }
+  function fe(e) {
+    return e.resW > 0 && e.resH > 0 ? { w: e.resW, h: e.resH } : he();
+  }
+  function _e(e) {
+    let t = fe(e);
+    return Math.hypot(t.w, t.h) / Math.max(e.diagonal, 1);
+  }
+  function gs(e) {
+    let t = window.devicePixelRatio || 1;
+    return (_e(e) * e.cellInches * e.correction) / t;
+  }
+  var _ = (e) => document.getElementById(e),
+    dt = (e, t = 1) =>
+      Number(e).toLocaleString("it-IT", {
+        maximumFractionDigits: t,
+        minimumFractionDigits: t,
+      });
+  function xs(e) {
+    let t = document.documentElement.style;
+    (t.setProperty("--bg", e.background.paper),
+      t.setProperty("--bg-2", e.background.default),
+      t.setProperty("--text", e.text.primary),
+      t.setProperty("--text-2", e.text.secondary),
+      t.setProperty("--accent", e.primary.main),
+      t.setProperty("--accent-text", e.primary.contrastText),
+      (document.documentElement.dataset.mode = e.mode.toLowerCase()));
+  }
+  function et(e, t = "LOCAL") {
+    return T.broadcast.sendMessage(ms, { action: e }, { destination: t });
+  }
+  T.onReady(async () => {
+    (xs(await T.theme.getTheme()), T.theme.onChange(xs));
+    let e = await T.player.getRole();
+    _("gm-section").hidden = e !== "GM";
+    let t = ct(),
+      { cfg: s, paused: i } = await lt();
+    async function n() {
+      let o = _("store-note");
+      if (t === "room") {
+        let u = await T.player.getName();
+        ((o.textContent = `Il browser blocca l\u2019archiviazione locale (finestra in incognito?). Le impostazioni vengono salvate nella stanza per il giocatore \u201C${u}\u201D: usate sempre questo nome nella finestra del tavolo.`),
+          (o.hidden = !1));
+      } else o.hidden = !0;
+    }
+    (n(),
+      T.player.onChange(async () => {
+        (n(), ({ cfg: s, paused: i } = await lt()), l());
+      }));
+    let r = he();
+    _("res-detected").textContent = `${r.w} \xD7 ${r.h}`;
+    async function a(o) {
+      ((s = { ...s, ...o }), l());
+      try {
+        ({ cfg: s, paused: i } = await Es({ cfg: o }));
+      } catch (u) {
+        (console.warn("Blocca Tavolo:", u),
+          T.notification.show("Impossibile salvare le impostazioni.", "ERROR"));
+      }
+      l();
+    }
+    function l() {
+      ((_("is-table").checked = s.isTable),
+        (_("table-settings").hidden = !s.isTable));
+      let o = _("state"),
+        u,
+        h,
+        y;
+      if (
+        (s.isTable
+          ? s.mode === "off"
+            ? ((y = "idle"),
+              (u = "Blocco spento"),
+              (h = "Zoom e vista si possono muovere liberamente."))
+            : i
+              ? ((y = "paused"),
+                (u = "In pausa"),
+                (h =
+                  "Il master ha sbloccato il tavolo. Premi \u201CBlocca qui\u201D per riprendere."))
+              : ((y = "locked"),
+                (u =
+                  s.mode === "full"
+                    ? "Zoom e posizione bloccati"
+                    : "Zoom bloccato"),
+                (h =
+                  s.mode === "full"
+                    ? "Ogni spostamento accidentale viene annullato."
+                    : "La mappa si pu\xF2 spostare, la scala resta fissa."))
+          : ((y = "idle"),
+            (u = "Dispositivo libero"),
+            (h =
+              "Attiva l\u2019opzione qui sotto solo sul monitor del tavolo.")),
+        (o.dataset.kind = y),
+        (_("state-title").textContent = u),
+        (_("state-detail").textContent = h),
+        !s.isTable)
+      )
+        return;
+      (document
+        .querySelectorAll(".seg [data-mode]")
+        .forEach((E) =>
+          E.setAttribute("aria-pressed", String(E.dataset.mode === s.mode)),
+        ),
+        (_("diagonal").value = s.diagonal),
+        (_("cell").value = s.cellInches),
+        (_("res-w").value = s.resW || ""),
+        (_("res-h").value = s.resH || ""));
+      let m = fe(s),
+        O = s.cellInches * 25.4,
+        A = gs(s) * (window.devicePixelRatio || 1);
+      ((_("readout").textContent =
+        `Quadretto di ${dt(O)} mm, pari a ${dt(A, 0)} pixel su ${m.w} \xD7 ${m.h} (${dt(_e(s), 0)} ppi). Correzione: ${dt(s.correction * 100, 1)}%.`),
+        (_("expected").textContent = `${dt(O * 10, 0)} mm`));
+    }
+    (_("is-table").addEventListener("change", (o) => {
+      a({ isTable: o.target.checked, lockedPos: null });
+    }),
+      document
+        .querySelectorAll(".seg [data-mode]")
+        .forEach((o) =>
+          o.addEventListener("click", () =>
+            a({ mode: o.dataset.mode, lockedPos: null }),
+          ),
+        ));
+    let d = (o, u) => {
+      let h = parseFloat(String(o.value).replace(",", "."));
+      return Number.isFinite(h) && h >= u ? h : null;
+    };
+    (_("diagonal").addEventListener("change", (o) => {
+      let u = d(o.target, 5);
+      u ? a({ diagonal: u, lockedPos: null }) : l();
+    }),
+      _("cell").addEventListener("change", (o) => {
+        let u = d(o.target, 0.1);
+        u ? a({ cellInches: u, lockedPos: null }) : l();
+      }));
+    let c = () => {
+      let o = d(_("res-w"), 1) || 0,
+        u = d(_("res-h"), 1) || 0;
+      a({ resW: o && u ? o : 0, resH: o && u ? u : 0, lockedPos: null });
+    };
+    (_("res-w").addEventListener("change", c),
+      _("res-h").addEventListener("change", c),
+      _("measure-apply").addEventListener("click", () => {
+        let o = d(_("measured"), 1);
+        if (!o) {
+          T.notification.show(
+            "Inserisci la misura di 10 quadretti in millimetri.",
+            "WARNING",
+          );
+          return;
+        }
+        let u = s.cellInches * 25.4 * 10;
+        (a({ correction: s.correction * (u / o), lockedPos: null }),
+          (_("measured").value = ""),
+          et("apply-now"),
+          T.notification.show(
+            "Correzione applicata. Rimisura per conferma.",
+            "SUCCESS",
+          ));
+      }),
+      _("measure-reset").addEventListener("click", () => {
+        (a({ correction: 1, lockedPos: null }), et("apply-now"));
+      }),
+      _("apply-now").addEventListener("click", () => et("apply-now")),
+      _("lock-here").addEventListener("click", () => et("lock-here")),
+      _("gm-pause").addEventListener("click", async () => {
+        (await et("pause", "ALL"),
+          T.notification.show(
+            "Tavolo sbloccato: ora puoi spostare la vista con Sync View.",
+            "INFO",
+          ));
+      }),
+      _("gm-lock").addEventListener("click", async () => {
+        (await et("lock-here", "ALL"),
+          T.notification.show(
+            "Tavolo bloccato nella posizione attuale.",
+            "SUCCESS",
+          ));
+      }),
+      Os(async () => {
+        (({ cfg: s, paused: i } = await lt()), l());
+      }),
+      l());
+  });
+})();
